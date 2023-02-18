@@ -3,13 +3,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
-class Lexical
-{
-  public:
+
     void Display();
-    void ReadCode(const std::string & filename);
-
-  private:
-    std::string code;
-};
+    std::vector<std::string> Tokenize(const std::string &filename);
+    bool isKeyword(const std::string &token);
+    bool isOperator(const std::string & token);
+    bool isSeperator(const char &token);

@@ -1,15 +1,18 @@
 #include <iostream>
-
+#include <vector>
+#include <string>
 #include "lex.h"
 
 int main() {
 
-  Lexical foo;
-  foo.ReadCode("code.txt");
+  std::vector<std::string> token;
 
-  std::cout << "Read code successfully!\n";
+  token = Tokenize("code.txt");
 
-  foo.Display();
+  for(auto i : token)
+  {
+    std::cout << i << '\n';
+  }
 
   return 0;
 }
