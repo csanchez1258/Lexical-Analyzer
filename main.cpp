@@ -5,14 +5,11 @@
 
 int main() {
 
-  std::vector<std::string> token;
+  auto token = Lexer("code.txt");
 
-  token = Tokenize("code.txt");
-
-  for(auto i : token)
-  {
-    std::cout << i << '\n';
-  }
-
+  // for(auto i : token)
+  // {
+  //   std::cout << i.first << "    " << i.second;
+  // }
   return 0;
 }
