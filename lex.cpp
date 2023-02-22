@@ -70,6 +70,12 @@ std::string Lexer(const std::string &filename)
       ready.push_back(std::make_pair(temp, "KEYWORD"));
       temp.clear();
    }
+   else if(isReal(temp))
+   {
+      std::cout << "\n\nFOUND Real: " << temp << "\n\n";
+      ready.push_back(std::make_pair(temp, "REAL"));
+      temp.clear();
+   }
    else if (!(isdigit(temp[0])) && *(std::next(i, 1)) == ' ')
    {
       std::cout << "\n\nFOUND IDENTIFIER: " << temp << "\n\n";
@@ -116,4 +122,9 @@ std::string toString(char token)
 {
   std::string temp(1, token);
   return temp;
+}
+
+bool isReal(const std::string &token)
+{
+
 }

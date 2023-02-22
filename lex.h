@@ -12,3 +12,4 @@
     bool isOperator(const std::string & token);
     bool isSeperator(const std::string & token);
     std::string toString(char token);
+    bool isReal(const std::string &token);
