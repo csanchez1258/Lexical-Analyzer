@@ -9,6 +9,7 @@ std::vector<std::string> keyword {"while", "if", "else", "for", "print", "endwhi
 std::vector<std::string> identifier{"int", "string", "fahr"};
 std::vector<std::string> opertr{"+", "-", "/", "%", "<=", "==", ">=", "<", ">", "="};
 std::vector<std::string> seperator{"{", "}", "(", ")", "[", "]", "<", ">", ",", ";", ":", "*", "#"};
+std::vector<std::string> real{};
 
 std::string Lexer(const std::string &filename)
 {
@@ -126,5 +127,10 @@ std::string toString(char token)
 
 bool isReal(const std::string &token)
 {
-
+   if(std::find(real.begin(), real.end(), token) != real.end())
+   {
+      return true;
+   }
+   else
+   return false;
 }
