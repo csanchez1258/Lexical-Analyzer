@@ -9,7 +9,7 @@
 std::vector<std::string> keyword {"while", "if", "else", "for", "print", "endwhile"};
 std::vector<std::string> identifier{"int", "string", "fahr"};
 std::vector<std::string> opertr{"+", "-", "/", "%", "<=", "==", ">=", "<", ">", "=", "*"};
-std::vector<std::string> seperator{"{", "}", "(", ")", "[", "]", ",", ";", ":", "#"};
+std::vector<std::string> seperator{"{","}", "(",")", "[","]", ",", ";", ":", "#"};
 
 std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filename)
 {
@@ -83,13 +83,13 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
    else if (isKeyword(temp))
    {
      // std::cout << "\n\nFOUND Keyword: " << temp << "\n\n";
-      ready.push_back(std::make_pair(temp, "KEYWORD"));
+      ready.push_back(std::make_pair(temp, "KEYWORD   "));
       temp.clear();
    }
    else if(isReal(temp) && !isdigit(*std::next(i, 1)) && *std::next(i,1) != '.')
    {
      // std::cout << "\n\nFOUND Real: " << temp << "\n\n";
-      ready.push_back(std::make_pair(temp, "REAL"));
+      ready.push_back(std::make_pair(temp, "REAL      "));
       temp.clear();
    }
    else if ((!(isdigit(temp[0])) && *(std::next(i, 1)) == ' ') || ( isSeperator(next_sep_op) || isOperator(next_sep_op)))
