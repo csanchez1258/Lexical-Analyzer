@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include <cctype>
 
 #include "lex.h"
 
@@ -50,6 +51,12 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
    }
    std::string possible_op_sep(1, *i);
    std::string next_sep_op(1, *std::next(i, 1));
+   if(possible_op_sep == "[" && next_sep_op == "*")
+   {
+    auto commentEnd = std::find(i, tokens.end(), ']');
+    i = commentEnd;
+    continue;
+   }
    //std::cout << "NEXT SEP: " << next_sep_op << '\n';
    //std::cout << "POSSIBLE: " << possible_op_sep << '\n';
 
@@ -77,7 +84,7 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
       }
       std::string s(1, *i);
      //std::cout << "PUSHING: " << temp << '\n';
-      ready.push_back(std::make_pair(s, "OPERATOR"));
+      ready.push_back(std::make_pair(temp, "OPERATOR"));
       temp.clear();
    }
    else if (isKeyword(temp))
@@ -86,7 +93,7 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
       ready.push_back(std::make_pair(temp, "KEYWORD   "));
       temp.clear();
    }
-   else if(isReal(temp) && !isdigit(*std::next(i, 1)) && *std::next(i,1) != '.')
+   else if (isReal(temp) && !isdigit(*std::next(i, 1)) && *std::next(i, 1) != '.' && !(isalpha(*std::next(i, 1))))
    {
      // std::cout << "\n\nFOUND Real: " << temp << "\n\n";
       ready.push_back(std::make_pair(temp, "REAL      "));
@@ -99,7 +106,13 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
       temp.clear();
    }
    //std::cout << temp;
-  }
+    else if(next_sep_op == " ")
+    {
+        //std::cout << "\n\nFOUND IDENTIFIER: " << temp << "\n\n";
+        ready.push_back(std::make_pair(temp, "UNKOWN"));
+        temp.clear();
+    }
+    }
 
   return ready;
 }

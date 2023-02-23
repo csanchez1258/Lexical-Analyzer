@@ -2,4 +2,16 @@ while  (fahr <= upper)   a = 23.00; endwhile
 
 id_3 = 32421412.421421;
 
-23 * 32;
+[*COMMENT*]
+
+23*2;
+421++3;
+
+3213 <= 32
+[*NOT SUPPOSED TO BE READ*]
+
+id32132 = 20.00;
+
+32.ID = 30;
+
+430284jijewori = 421940921;
