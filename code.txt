@@ -1,3 +1,5 @@
 while  (fahr <= upper)   a = 23.00; endwhile
 
 id_3 = 32421412.421421;
+
+23 * 32;
