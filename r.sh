@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 #Lexical Analyzer for a text file containing code
 #Author: Christian Sanchez

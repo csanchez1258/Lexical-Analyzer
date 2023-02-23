@@ -11,9 +11,14 @@ int main() {
 
   std::cout << "\n\n\n\n\n\n\n\n";
 
+  std::cout << "Token" << std::setw(40) << "Lexi" << '\n'
+              << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n";
+
   for (const auto &i : token)
   {
-    std::cout << std::left  << i.first << std::setw(40) << std::right << i.second << '\n';
+
+    
+    std::cout << i.second << std::setw(40) << i.first << '\n';
   }
   return 0;
 }
