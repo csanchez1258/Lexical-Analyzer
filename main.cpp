@@ -18,7 +18,7 @@ int main() {
   {
 
     
-    std::cout << i.second << std::setw(40) << i.first << '\n';
+    std::cout << std::left  << i.second << std::setw(40) << std::right << i.first << '\n';
   }
   return 0;
 }
