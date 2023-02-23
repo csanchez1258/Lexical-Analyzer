@@ -147,4 +147,5 @@ bool isReal(const std::string &token)
   buffer >> std::noskipws >> f; // noskipws considers leading whitespace invalid
   // Check the entire string was consumed and if either failbit or badbit is set
   return buffer.eof() && !buffer.fail();
+
 }
