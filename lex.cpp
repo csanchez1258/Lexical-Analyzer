@@ -8,8 +8,8 @@
 
 std::vector<std::string> keyword {"while", "if", "else", "for", "print", "endwhile"};
 std::vector<std::string> identifier{"int", "string", "fahr"};
-std::vector<std::string> opertr{"+", "-", "/", "%", "<=", "==", ">=", "<", ">", "="};
-std::vector<std::string> seperator{"{", "}", "(", ")", "[", "]", ",", ";", ":", "*", "#"};
+std::vector<std::string> opertr{"+", "-", "/", "%", "<=", "==", ">=", "<", ">", "=", "*"};
+std::vector<std::string> seperator{"{", "}", "(", ")", "[", "]", ",", ";", ":", "#"};
 
 std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filename)
 {
@@ -22,9 +22,9 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
     while(fin >> buffer)
     {
        // convert the buffer into a string and save it to the class variable
-      std::cout << "READING BUFFER: " << buffer << '\n';
+      //std::cout << "READING BUFFER: " << buffer << '\n';
       buffer += " ";
-      std::cout << "READING TOKENS: " << tokens << '\n';
+      //std::cout << "READING TOKENS: " << tokens << '\n';
       tokens += buffer;
     }
   }
@@ -35,7 +35,7 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
   }
   fin.close();
   std::string temp;
-  std::cout << "BUFFER: " << tokens << '\n';
+  //std::cout << "BUFFER: " << tokens << '\n';
   // start parsing the vector
   for(auto i = tokens.begin(); i != tokens.end(); i++)
   {
@@ -46,12 +46,12 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
    else
    {
     temp += *i;
-    std::cout << "Added: " << temp << '\n';
+    //std::cout << "Added: " << temp << '\n';
    }
    std::string possible_op_sep(1, *i);
    std::string next_sep_op(1, *std::next(i, 1));
-   std::cout << "NEXT SEP: " << next_sep_op << '\n';
-   std::cout << "POSSIBLE: " << possible_op_sep << '\n';
+   //std::cout << "NEXT SEP: " << next_sep_op << '\n';
+   //std::cout << "POSSIBLE: " << possible_op_sep << '\n';
 
    if(possible_op_sep == " ")
    {
@@ -61,7 +61,7 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
    if (isSeperator(possible_op_sep) )
    {
       //add to check next op
-      std::cout << "\n\nFOUND SEP: " << *i << "\n\n";
+     // std::cout << "\n\nFOUND SEP: " << *i << "\n\n";
       std::string s(1, *i);
       ready.push_back(std::make_pair(s, "SEPERATOR"));
       temp.clear();
@@ -69,32 +69,32 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
    else if (isOperator(possible_op_sep))
    {
       //add to check next op
-      std::cout << "\n\nFOUND OP: " << *i << "\n\n";
+      //std::cout << "\n\nFOUND OP: " << *i << "\n\n";
       if(*(std::next(i, 1)) == '=')
       {
-        std::cout << "Continuing\n";
+        //std::cout << "Continuing\n";
         continue;
       }
       std::string s(1, *i);
-      std::cout << "PUSHING: " << temp << '\n';
+     //std::cout << "PUSHING: " << temp << '\n';
       ready.push_back(std::make_pair(s, "OPERATOR"));
       temp.clear();
    }
    else if (isKeyword(temp))
    {
-      std::cout << "\n\nFOUND Keyword: " << temp << "\n\n";
+     // std::cout << "\n\nFOUND Keyword: " << temp << "\n\n";
       ready.push_back(std::make_pair(temp, "KEYWORD"));
       temp.clear();
    }
    else if(isReal(temp) && !isdigit(*std::next(i, 1)) && *std::next(i,1) != '.')
    {
-      std::cout << "\n\nFOUND Real: " << temp << "\n\n";
+     // std::cout << "\n\nFOUND Real: " << temp << "\n\n";
       ready.push_back(std::make_pair(temp, "REAL"));
       temp.clear();
    }
    else if ((!(isdigit(temp[0])) && *(std::next(i, 1)) == ' ') || ( isSeperator(next_sep_op) || isOperator(next_sep_op)))
    {
-      std::cout << "\n\nFOUND IDENTIFIER: " << temp << "\n\n";
+      //std::cout << "\n\nFOUND IDENTIFIER: " << temp << "\n\n";
       ready.push_back(std::make_pair(temp, "IDENTIFIER"));
       temp.clear();
    }
