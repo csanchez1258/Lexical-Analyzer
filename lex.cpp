@@ -7,8 +7,9 @@
 
 #include "lex.h"
 
-std::vector<std::string> keyword {"while", "if", "else", "for", "print", "endwhile"};
-std::vector<std::string> identifier{"int", "string", "fahr"};
+std::vector<std::string> keyword {"while", "if", "else", "for", "print", "endwhile", "namespace", "true", "false", "and", "or", "try", 
+"catch", "return", "not", "sizeof", "long", "switch", "do", "break", "continue", "goto", "struct"};
+std::vector<std::string> identifier{"int", "string", "fahr", "double", "float", "char"};
 std::vector<std::string> opertr{"+", "-", "/", "%", "<=", "==", ">=", "<", ">", "=", "*"};
 std::vector<std::string> seperator{"{","}", "(",")", "[","]", ",", ";", ":", "#"};
 
