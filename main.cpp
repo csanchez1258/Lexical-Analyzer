@@ -17,7 +17,7 @@ int main() {
   for (const auto &i : token)
   {
 
-    
+
     std::cout << std::left  << i.second << std::setw(35) << std::right << i.first << '\n';
   }
   return 0;

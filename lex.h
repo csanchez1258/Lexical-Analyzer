@@ -13,3 +13,5 @@
     bool isSeperator(const std::string & token);
     std::string toString(char token);
     bool isReal(const std::string &token);
+    int Get_FSM_Col(char currentChar);
+    std::string LexName(int lexeme);
