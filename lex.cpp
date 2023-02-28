@@ -21,7 +21,7 @@ enum FSM_TRANSITION
   UNKNOWN
 };
 
-int stateTable[][5] = {{0, INTEGER, REAL, IDENTIFER, UNKNOWN},
+int state_table[][5] = {{0, INTEGER, REAL, IDENTIFER, UNKNOWN},
                        /* STATE 1: INTEGER */ {INTEGER, INTEGER, REAL, UNKNOWN, REJECT},
                        /* STATE 2: REAL */ {REAL, REAL, UNKNOWN, UNKNOWN, REJECT},
                        /* STATE 3: IDENTIFER */ {IDENTIFER, IDENTIFER, UNKNOWN, IDENTIFER, REJECT},
@@ -35,7 +35,7 @@ Lexer(const std::string &filename)
   std::string tokens;
   int col = REJECT;
   int current_state = REJECT;
-  int prevState = REJECT;
+  int prev_state = REJECT;
   if (fin.is_open())
   {
     while (fin >> buffer)
@@ -68,12 +68,12 @@ Lexer(const std::string &filename)
       temp += *i;
       // std::cout << "Added: " << temp << '\n';
     }
-    col = Get_FSM_Col(*i);
+    col = FSM_COLM(*i);
     //std::cout << "Current char: " << *i << "\nCurrent Coumn: " << col << "\n\n";
     //std::cout << "Current state: " << current_state << '\n';
     //std::cout << "FSM state: " << stateTable[current_state][col] << "\n\n";
     // get the cuurent state
-    current_state = stateTable[current_state][col];
+    current_state = state_table[current_state][col];
     //std::cout << "UPDATED state: " << current_state << "\n\n";
 
     std::string possible_op_sep(1, *i);
@@ -104,11 +104,13 @@ Lexer(const std::string &filename)
       if (*(std::next(i, 1)) == '=')
       {
         // std::cout << "Continuing\n";
+        //std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
         current_state = 0;
         continue;
       }
       std::string s(1, *i);
       // std::cout << "PUSHING: " << temp << '\n';
+      //std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
       ready.push_back(std::make_pair(temp, "OPERATOR"));
       temp.clear();
       current_state = 0;
@@ -118,7 +120,8 @@ Lexer(const std::string &filename)
     else if (isKeyword(temp))
     {
       //std::cout << "\n\nFOUND Keyword: " << temp << "\n\n";
-      ready.push_back(std::make_pair(temp, "KEYWORD   "));
+      //std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
+      ready.push_back(std::make_pair(temp, "KEYWORD"));
       temp.clear();
       current_state = 0;
       continue;
@@ -129,7 +132,8 @@ Lexer(const std::string &filename)
       {
         //std::cout << "PUSHING STATE: " << prevState << '\n';
         //std::cout << "CURRENT TEMP: " << temp << '\n';
-        ready.push_back(std::make_pair(temp, LexName(prevState)));
+        //std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
+        ready.push_back(std::make_pair(temp, LexName(prev_state)));
         temp.clear();
         continue;
       }
@@ -138,7 +142,7 @@ Lexer(const std::string &filename)
       //  temp += *i;
       //  std::cout << "TEMP: " << temp << '\n';
       //  }
-      prevState = current_state;
+      prev_state = current_state;
       //std::cout << "prevval: " << prevState << '\n';
     }
   }
@@ -146,7 +150,7 @@ Lexer(const std::string &filename)
   return ready;
 }
 
-int Get_FSM_Col(char currentChar)
+int FSM_COLM(char currentChar)
 {
   // check for integer numbers
   if (isdigit(currentChar))
@@ -177,10 +181,10 @@ std::string LexName(int lexeme)
     return "INTEGER";
     break;
   case REAL:
-    return "REAL  ";
+    return "REAL";
     break;
   case IDENTIFER:
-    return "IDENTIFER";
+    return "IDENTIFIER";
     break;
   case UNKNOWN:
     return "UNKNOWN";
@@ -234,4 +238,47 @@ bool isReal(const std::string &token)
   buffer >> std::noskipws >> f; // noskipws considers leading whitespace invalid
   // Check the entire string was consumed and if either failbit or badbit is set
   return buffer.eof() && !buffer.fail();
+}
+
+void Display(const std::vector<std::pair<std::string, std::string>> &ready)
+{
+  std::cout << "Token" << std::setw(45) << "Lexi" << '\n'
+            << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+
+  for (const auto &i : ready)
+  {
+
+    if (i.second == "KEYWORD")
+    {
+      std::cout << i.second << std::setw(43) << i.first << '\n';
+    }
+    else if (i.second == "OPERATOR")
+    {
+      std::cout << i.second << std::setw(42) << i.first << '\n';
+    }
+    else if (i.second == "SEPERATOR")
+    {
+      std::cout << i.second << std::setw(41) << i.first << '\n';
+    }
+    else if (i.second == "IDENTIFIER")
+    {
+      std::cout << i.second << std::setw(40) << i.first << '\n';
+    }
+    else if (i.second == "REAL")
+    {
+      std::cout << i.second << std::setw(46) << i.first << '\n';
+    }
+    else if (i.second == "INTEGER")
+    {
+      std::cout << i.second << std::setw(43) << i.first << '\n';
+    }
+    else if (i.second == "UNKNOWN")
+    {
+      std::cout << i.second << std::setw(43) << i.first << '\n';
+    }
+    else
+    {
+      std::cout << "ERROR: Unknown RETURN VALUE\n";
+    }
+  }
 }
