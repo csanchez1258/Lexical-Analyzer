@@ -23,7 +23,7 @@ std::vector<std::string> keyword{
 };
 //std::vector<std::string> identifier{"int", "string", "fahr"};
 std::vector<std::string> opertr{"+", "-", "/", "%", "<=", "==", ">=", "<", ">", "=", "*"};
-std::vector<std::string> seperator{"{", "}", "(", ")", "[", "]", ",", ";", ":", "#", "\"", "\""};
+std::vector<std::string> seperator{"{", "}", "(", ")", "[", "]", ",", ";", ":", "#", "\"", "\"", "\'"};
 
 enum FSM_TRANSITION
 {
@@ -48,7 +48,7 @@ Lexer(const std::string &filename)
   std::string tokens;
   int col = REJECT;
   int current_state = REJECT;
-  int prev_state = REJECT;
+  //int prev_state = REJECT;
   if (fin.is_open())
   {
     while (fin >> buffer)
@@ -82,21 +82,23 @@ Lexer(const std::string &filename)
       // std::cout << "Added: " << temp << '\n';
     }
     col = FSM_COLM(*i);
-    //std::cout << "Current char: " << *i << "\nCurrent Coumn: " << col << "\n\n";
-    //std::cout << "Current state: " << current_state << '\n';
-    //std::cout << "FSM state: " << stateTable[current_state][col] << "\n\n";
+    // std::cout << "Current char: " << *i << "\nCurrent Coumn: " << col << "\n\n";
+    // std::cout << "PREV STATE:" << prev_state << "\n";
+    // std::cout << "Current state: " << current_state << '\n';
+    // std::cout << "FSM state: " << state_table[current_state][col] << "\n\n";
     // get the cuurent state
     current_state = state_table[current_state][col];
-    //std::cout << "UPDATED state: " << current_state << "\n\n";
+    // std::cout << "UPDATED state: " << current_state << "\n\n";
 
     std::string possible_op_sep(1, *i);
     std::string next_sep_op(1, *std::next(i, 1));
-    //std::cout << "TEMP TOP: " << temp << '\n';
+    // std::cout << "TEMP TOP: " << temp << '\n';
     if (possible_op_sep == "[" && next_sep_op == "*")
     {
       auto commentEnd = std::find(i, tokens.end(), ']');
       i = commentEnd;
       current_state = 0;
+      //prev_state = 0;
       continue;
     }
 
@@ -123,7 +125,7 @@ Lexer(const std::string &filename)
       }
       std::string s(1, *i);
       // std::cout << "PUSHING: " << temp << '\n';
-      //std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
+      // std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
       ready.push_back(std::make_pair(temp, "OPERATOR"));
       temp.clear();
       current_state = 0;
@@ -143,10 +145,10 @@ Lexer(const std::string &filename)
     {
       if (current_state == REJECT || *std::next(i, 1) == ' ' || isSeperator(next_sep_op) || isOperator(next_sep_op))
       {
-        //std::cout << "PUSHING STATE: " << prevState << '\n';
-        //std::cout << "CURRENT TEMP: " << temp << '\n';
-        //std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
-        ready.push_back(std::make_pair(temp, LexName(prev_state)));
+        // std::cout << "PUSHING STATE: " << prev_state << '\n';
+        // std::cout << "CURRENT TEMP: " << temp << '\n';
+        // std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
+        ready.push_back(std::make_pair(temp, LexName(current_state)));
         temp.clear();
         continue;
       }
@@ -155,7 +157,7 @@ Lexer(const std::string &filename)
       //  temp += *i;
       //  std::cout << "TEMP: " << temp << '\n';
       //  }
-      prev_state = current_state;
+      //prev_state = current_state;
       //std::cout << "prevval: " << prevState << '\n';
     }
   }
