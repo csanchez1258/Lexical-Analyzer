@@ -7,10 +7,23 @@
 
 #include "lex.h"
 
-std::vector<std::string> keyword{"while", "if", "else", "for", "print", "endwhile"};
-std::vector<std::string> identifier{"int", "string", "fahr"};
+std::vector<std::string> keyword{
+    "while",
+    "if",
+    "else",
+    "for",
+    "print",
+    "endwhile",
+    "int",
+    "string",
+    "float",
+    "bool",
+    "true",
+    "false"
+};
+//std::vector<std::string> identifier{"int", "string", "fahr"};
 std::vector<std::string> opertr{"+", "-", "/", "%", "<=", "==", ">=", "<", ">", "=", "*"};
-std::vector<std::string> seperator{"{", "}", "(", ")", "[", "]", ",", ";", ":", "#"};
+std::vector<std::string> seperator{"{", "}", "(", ")", "[", "]", ",", ";", ":", "#", "\"", "\""};
 
 enum FSM_TRANSITION
 {

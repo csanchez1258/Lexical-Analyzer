@@ -1,0 +1,23 @@
+[*SAMPLE INPUT FOR LEXICAL ANALYZER*]
+[*DET OF A 2x2 MATRIX*]
+bool finished = false;
+if(finished == false)
+{
+  int my_matrix[2][2] = [[2,3][4,3]];
+  int left;
+  int right;
+  float 65.NOTSUPPOSED.WORK = 0.0;
+  [*PRINT OUT THE MATRIX*]
+  for(int i = 0.0; i < my_matrix; i+=1)
+  {
+    for(int j = 0.0; j < my_matrix[i]; j+=1))
+    {
+      cout << my_matrix[i][j] << endl;
+    }
+  }
+  right = my_matrix[0][1] * my_matrix[1][1];
+  left = my_matrix[0][0] * my_matrix[1][0];
+  answer = left * right;
+  cout << "The determinant of the matrix is: " << answer;
+  finished = true;
+}

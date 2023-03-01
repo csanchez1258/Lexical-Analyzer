@@ -7,7 +7,13 @@
 
 int main() {
 
-  auto token = Lexer("code.txt");
+  std::string fname;
+
+  std::cout << "Enter file name: ";
+  std::cin >> fname;
+  std::cout << std::endl;
+
+  auto token = Lexer(fname);
 
   std::cout << "\n";
 
