@@ -21,7 +21,6 @@ std::vector<std::string> keyword{
     "true",
     "false"
 };
-//std::vector<std::string> identifier{"int", "string", "fahr"};
 std::vector<std::string> opertr{"+", "-", "/", "%", "<=", "==", ">=", "<", ">", "=", "*"};
 std::vector<std::string> seperator{"{", "}", "(", ")", "[", "]", ",", ";", ":", "#", "\"", "\"", "\'"};
 
@@ -33,14 +32,13 @@ enum FSM_TRANSITION
   IDENTIFER,
   UNKNOWN
 };
-
-int state_table[][5] = {{0, INTEGER, REAL, IDENTIFER, UNKNOWN},
-                       /* STATE 1: INTEGER */ {INTEGER, INTEGER, REAL, UNKNOWN, REJECT},
-                       /* STATE 2: REAL */ {REAL, REAL, UNKNOWN, UNKNOWN, REJECT},
+//CREATE A TABLE OF OUR TRANSITIONs
+int state_table[][5] =                         {{0, INTEGER, REAL, IDENTIFER, UNKNOWN},
+                       /* STATE 1: INTEGER */   {INTEGER, INTEGER, REAL, UNKNOWN, REJECT},
+                       /* STATE 2: REAL */      {REAL, REAL, UNKNOWN, UNKNOWN, REJECT},
                        /* STATE 3: IDENTIFER */ {IDENTIFER, IDENTIFER, UNKNOWN, IDENTIFER, REJECT},
-                       /* STATE 4: UNKOWN */ {UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN}};
-std::vector<std::pair<std::string, std::string>>
-Lexer(const std::string &filename)
+                       /* STATE 4: UNKOWN */    {UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN}};
+std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filename)
 {
   std::ifstream fin(filename, std::ios::binary); // open file
   std::vector<std::pair<std::string, std::string>> ready;
@@ -48,15 +46,12 @@ Lexer(const std::string &filename)
   std::string tokens;
   int col = REJECT;
   int current_state = REJECT;
-  //int prev_state = REJECT;
+  //start reading the file
   if (fin.is_open())
   {
     while (fin >> buffer)
     {
-      // convert the buffer into a string and save it to the class variable
-      // std::cout << "READING BUFFER: " << buffer << '\n';
       buffer += " ";
-      // std::cout << "READING TOKENS: " << tokens << '\n';
       tokens += buffer;
     }
   }
@@ -67,8 +62,7 @@ Lexer(const std::string &filename)
   }
   fin.close();
   std::string temp;
-  // std::cout << "BUFFER: " << tokens << '\n';
-  //  start parsing the vector
+  //  start traversing the vector
   for (auto i = tokens.begin(); i != tokens.end(); i++)
   {
     if (*i == ' ')
@@ -79,33 +73,31 @@ Lexer(const std::string &filename)
     else
     {
       temp += *i;
-      // std::cout << "Added: " << temp << '\n';
     }
+    //grab the num of column for current char
     col = FSM_COLM(*i);
-    // std::cout << "Current char: " << *i << "\nCurrent Coumn: " << col << "\n\n";
-    // std::cout << "PREV STATE:" << prev_state << "\n";
-    // std::cout << "Current state: " << current_state << '\n';
-    // std::cout << "FSM state: " << state_table[current_state][col] << "\n\n";
-    // get the cuurent state
-    current_state = state_table[current_state][col];
-    // std::cout << "UPDATED state: " << current_state << "\n\n";
 
+    //upadate state by looking at the state_table and transition
+    current_state = state_table[current_state][col];
+
+
+    //for the seperators, operaters, and keywords
+    //we will not need FSM so we will do simple approach
     std::string possible_op_sep(1, *i);
     std::string next_sep_op(1, *std::next(i, 1));
-    // std::cout << "TEMP TOP: " << temp << '\n';
+
+    //check for comments
     if (possible_op_sep == "[" && next_sep_op == "*")
     {
       auto commentEnd = std::find(i, tokens.end(), ']');
       i = commentEnd;
       current_state = 0;
-      //prev_state = 0;
       continue;
     }
 
     if (isSeperator(possible_op_sep))
     {
       // add to check next op
-      //std::cout << "\n\nFOUND SEP: " << *i << "\n\n";
       std::string s(1, *i);
       ready.push_back(std::make_pair(s, "SEPERATOR"));
       temp.clear();
@@ -115,17 +107,12 @@ Lexer(const std::string &filename)
     else if (isOperator(possible_op_sep))
     {
       // add to check next op
-      // std::cout << "\n\nFOUND OP: " << *i << "\n\n";
       if (*(std::next(i, 1)) == '=')
       {
-        // std::cout << "Continuing\n";
-        //std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
         current_state = 0;
         continue;
       }
       std::string s(1, *i);
-      // std::cout << "PUSHING: " << temp << '\n';
-      // std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
       ready.push_back(std::make_pair(temp, "OPERATOR"));
       temp.clear();
       current_state = 0;
@@ -134,31 +121,22 @@ Lexer(const std::string &filename)
 
     else if (isKeyword(temp))
     {
-      //std::cout << "\n\nFOUND Keyword: " << temp << "\n\n";
-      //std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
       ready.push_back(std::make_pair(temp, "KEYWORD"));
       temp.clear();
       current_state = 0;
       continue;
     }
+
+    //if we did not pass our simple checks for ops, seps, and keys, then check for
+    //identfiers, real, and int using FSM transitions
     else
     {
       if (current_state == REJECT || *std::next(i, 1) == ' ' || isSeperator(next_sep_op) || isOperator(next_sep_op))
       {
-        // std::cout << "PUSHING STATE: " << prev_state << '\n';
-        // std::cout << "CURRENT TEMP: " << temp << '\n';
-        // std::cout << "TEMP: " << temp << "\n LENGTH: " << temp.length() << '\n';
         ready.push_back(std::make_pair(temp, LexName(current_state)));
         temp.clear();
         continue;
       }
-      //  else
-      //  {
-      //  temp += *i;
-      //  std::cout << "TEMP: " << temp << '\n';
-      //  }
-      //prev_state = current_state;
-      //std::cout << "prevval: " << prevState << '\n';
     }
   }
 
@@ -244,15 +222,6 @@ std::string toString(char token)
 {
   std::string temp(1, token);
   return temp;
-}
-
-bool isReal(const std::string &token)
-{
-  std::istringstream buffer(token);
-  float f;
-  buffer >> std::noskipws >> f; // noskipws considers leading whitespace invalid
-  // Check the entire string was consumed and if either failbit or badbit is set
-  return buffer.eof() && !buffer.fail();
 }
 
 void Display(const std::vector<std::pair<std::string, std::string>> &ready)
