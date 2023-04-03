@@ -1,0 +1,48 @@
+Bash: Compile ....
+Bash: Run the program
+Enter file name: 
+
+Token                                         Lexi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+KEYWORD                                      while
+SEPERATOR                                        (
+IDENTIFIER                                    fahr
+OPERATOR                                        <=
+IDENTIFIER                                   upper
+SEPERATOR                                        )
+IDENTIFIER                                       a
+OPERATOR                                         =
+REAL                                         23.00
+SEPERATOR                                        ;
+KEYWORD                                   endwhile
+IDENTIFIER                                     sum
+OPERATOR                                         =
+INTEGER                                          0
+SEPERATOR                                        ;
+IDENTIFIER                                 id32132
+OPERATOR                                         =
+REAL                                         20.00
+SEPERATOR                                        ;
+KEYWORD                                        for
+SEPERATOR                                        (
+KEYWORD                                        int
+IDENTIFIER                                       i
+OPERATOR                                         =
+INTEGER                                          0
+SEPERATOR                                        ;
+IDENTIFIER                                       i
+OPERATOR                                         <
+INTEGER                                         10
+SEPERATOR                                        ;
+IDENTIFIER                                       i
+OPERATOR                                         +
+OPERATOR                                         +
+SEPERATOR                                        )
+SEPERATOR                                        {
+IDENTIFIER                                     sum
+OPERATOR                                        +=
+INTEGER                                          1
+SEPERATOR                                        ;
+SEPERATOR                                        }
+
+Bash: The script file will now terminate
