@@ -3,6 +3,7 @@
 #include <string>
 #include <iomanip>
 #include "lex.h"
+#include "parser.h"
 
 
 int main() {
@@ -15,11 +16,13 @@ int main() {
 
   auto token = Lexer(fname);
 
-  std::cout << "\n";
+  parser(token);
 
-  Display(token);
+  // std::cout << "\n";
 
-  std::cout << "\n";
+  // Display(token);
+
+  // std::cout << "\n";
 
   return 0;
 }

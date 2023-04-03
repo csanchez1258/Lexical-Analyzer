@@ -6,7 +6,7 @@
 rm *.o
 
 echo "Bash: Compile ...."
-g++ -Wall -Wextra main.cpp lex.cpp -o lex.o
+g++ -Wall -Wextra main.cpp lex.cpp parser.cpp -o lex.o
 
 echo "Bash: Run the program"
 ./lex.o
