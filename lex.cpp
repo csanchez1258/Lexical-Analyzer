@@ -20,6 +20,7 @@ std::vector<std::string> keyword{
     "bool",
     "true",
     "false",
+    "return"
 };
 std::vector<std::string> opertr{"+", "-", "/", "%", "<=", "==", ">=", "<", ">", "=", "*"};
 std::vector<std::string> seperator{"{", "}", "(", ")", "[", "]", ",", ";", ":", "#", "\"", "\"", "\'"};

@@ -18,6 +18,8 @@ int main() {
 
   parser(token);
 
+  std::cout << "end\n\n";
+
   // std::cout << "\n";
 
   // Display(token);
