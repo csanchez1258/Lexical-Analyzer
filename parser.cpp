@@ -6,11 +6,15 @@
 std::vector<std::pair<std::string, std::string>> tokensglobal;
 std::pair<std::string, std::string> singletoken;
 std::vector<std::pair<std::string, std::string>>::iterator it;
+int count = 0;
 
 void scanner()
 {
-  std::cout << "||   Token: " << (*it).second << "      Lexeme: " << (*it).first << " || \n";
-  singletoken = *(++it);
+  std::cout << "\n\n||   Token: " << (*it).second << "      Lexeme: " << (*it).first << " || \n";
+  if(it+1 != tokensglobal.end())
+  {
+    singletoken = *(++it);
+  }
 }
 
 std::pair<std::string, std::string> nexttk(int step) 
@@ -23,14 +27,10 @@ std::pair<std::string, std::string> nexttk(int step)
 void parser(const std::vector<std::pair<std::string, std::string>> &tokens)
 {
   tokensglobal = tokens;
-  for(auto i : tokensglobal )
-  {
-    std::cout << i.first << "\n i.second\n";
-  }
   it = tokensglobal.begin();
   singletoken = *it;
-  std::cout << "HERE" << (*it).first << (*it).second;
-  check();
+  // std::cout << "HERE" << (*it).first << (*it).second;
+  //check();
   rat23s();
 }
 
@@ -42,7 +42,7 @@ void check()
 void rat23s()
 {
   // if (switch) 
-  std::cout << "<Rat23S> ::= <Opt Function Definitions> # <Opt Declaration List> # <Statement List>\n";
+  std::cout << "<Rat23S> -> <Opt Function Definitions> # <Opt Declaration List> # <Statement List>\n";
   opt_functions();
   if (singletoken.first == "#") 
     scanner();
@@ -67,13 +67,13 @@ void rat23s()
 
 void opt_functions()
 {
-  std::cout << "<Opt Function Definitions> ::= <Function Definitions> | <Empty>\n";
+  std::cout << "<Opt Function Definitions> -> <Function Definitions> | <Empty>\n";
   function_def();
 }
 
 void function_def()
 {
-  std::cout << "<Function Definitions> ::= <Function> <FunctionDefintion2>>\n";
+  std::cout << "<Function Definitions> -> <Function> <FunctionDefintion2>>\n";
   function();
   function_def2();
 }
@@ -95,7 +95,7 @@ void function_def2()
 void function()
 {
   //function then identifier (<opt parameter list>) <opt decl list> <Body>
-  std::cout << "<Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>\n";
+  std::cout << "<Function> -> function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>\n";
   if(singletoken.first == "function")
   {
     scanner();
@@ -106,7 +106,7 @@ void function()
     std::cout << "Expected a function keyword\n";
     exit(1);
   }
-  std::cout << "\n\nBruh 5\n\n";
+  // std::cout << "\n\nBruh 5\n\n";
   identifier();
   if(singletoken.first == "(")
   {
@@ -131,8 +131,9 @@ void function()
 
 void opt_parameter_list()
 {
-  std::cout << "  <Opt Parameter List> -> ";
-  if(!(nexttk(0).first == ")"))
+  std::cout << "<Opt Parameter List> -> ";
+  // std::cout << "\t\b\n\n\n\n HERE:: " << nexttk(1).first << '\n';
+  if(nexttk(1).first != ")")
   {
     std::cout << "<Parameter List>\n";
     parameter_list();
@@ -166,7 +167,7 @@ void parameter_list2()
 
 void parameter()
 {
-  std::cout << "<Parameter> ::= <IDs > <Qualifier>\n";
+  std::cout << "<Parameter> -> <IDs > <Qualifier>\n";
   ids();
   qualifier();
 }
@@ -198,7 +199,7 @@ void qualifier()
 
 void body()
 {
-  std::cout << " <Body> -> {<Statement List>}";
+  std::cout << "<Body> -> {<Statement List>}";
   if(singletoken.first == "{")
   {
     scanner();
@@ -222,7 +223,7 @@ void body()
 
 void opt_declaration_list()
 {
-  std::cout << "<Opt Declaration List> ->";
+  std::cout << "<Opt Declaration List> -> ";
 
   if(singletoken.first == "int"||
      singletoken.first == "bool" || 
@@ -254,7 +255,7 @@ void declaration_list()
 
 void declaration_list2()
 {
-  std::cout << "<Declaration List 2> -> \n";
+  std::cout << "<Declaration List 2> -> ";
   if(/*singletoken.second == "IDENTIFIER"||*/
      singletoken.first == "int" || 
      singletoken.first == "bool" ||
@@ -280,15 +281,9 @@ void declaration()
 void ids()
 {
   std::cout << "<IDs> -> <Identifier> <IDs 2>\n";
-  if(singletoken.second == "IDENTIFIER")
-  {
+  // std::cout << "bruh\n";
     identifier();
     ids2();
-  }
-  else
-  {
-    ids2();
-  }
 }
 
 void ids2()
@@ -296,13 +291,12 @@ void ids2()
   std::cout << "<IDs 2> -> ";
   if(singletoken.first == ",")
   {
-    std::cout << "Entered becasue: " << singletoken.first << '\n';
+    //std::cout << "Entered becasue: " << singletoken.first << '\n';
     //std::cout << "\n\nbruh PT2\n\n";
     std::cout << ", <IDs>\n";
     scanner();
     ids();
-    std::cout << "\n\nbruh 2\n\n";
-    identifier();
+    
   }
   else
   {
@@ -354,12 +348,12 @@ void statement()
     std::cout << "<If>\n";
     if_rule();
   }
-  else if(singletoken.first == "print")
+  else if(singletoken.first == "put")
   {
     std::cout << "<Print>\n";
     print_rule();
   }
-  else if(singletoken.first == "scan")
+  else if(singletoken.first == "get")
   {
     std::cout << "<Scan>\n";
     scan_rule();
@@ -374,19 +368,21 @@ void statement()
     std::cout << "<Identifier>\n";
     assign();
   }
-  else if(singletoken.second == "{")
+  else if(singletoken.first == "{")
   {
+    std::cout << "<Compound>\n";
     compound();
   }
   else
   {
-    std::cout << "expected a statement\n";
+    std::cout << "expected a statement\n FOR: " << singletoken.first << '\n';
+    exit(1);
   }
 }
 
 void compound()
 {
-  std::cout << "<Compound> ::= { <Statement List> }\n";
+  std::cout << "<Compound> -> { <Statement List> }\n";
   if (singletoken.first == "{")
   {
     scanner();
@@ -408,7 +404,7 @@ void assign()
   std::cout << "<Assign> -> <Identifier> = <Expression>;\n";
   if(singletoken.second == "IDENTIFIER")
   {
-    std::cout << "\n\nBRUH 3\n\n";
+    // std::cout << "\n\nBRUH 3\n\n";
     identifier();
   }
   if(singletoken.first == "=")
@@ -429,7 +425,7 @@ void assign()
 
 void if_rule()
 {
-  std::cout << "<If> ::= if ( <Condition> ) <Statement> <if 2>\n";
+  std::cout << "<If> -> if ( <Condition> ) <Statement> <if 2>\n";
   if(singletoken.first == "if")
   {
     scanner();
@@ -508,10 +504,19 @@ void return_rule()
 void return_rule2()
 {
   std::cout << "<Return 2> -> ";
-  if(nexttk(0).second != ";")
+  if(nexttk(0).first != ";")
   {
     std::cout << "return <Expression>;\n";
     expression();
+    if(singletoken.first == ";")
+    {
+      scanner();
+    }
+    else
+    {
+      
+      std::cout << "Expected a ;\n";
+    }
   }
   else if (singletoken.first == ";")
   {
@@ -527,7 +532,7 @@ void return_rule2()
 
 void print_rule()
 {
-  std::cout << "<Print> ::= put ( <Expression>);\n";
+  std::cout << "<Print> -> put ( <Expression>);\n";
   if(singletoken.first == "put")
   {
     scanner();
@@ -541,6 +546,15 @@ void print_rule()
   {
     scanner();
     expression();
+    if(singletoken.first == ")")
+    {
+      scanner();
+    }
+    else
+    {
+      std::cout << "Expected a )\n";
+      exit(1);
+    }
   }
   else
   {
@@ -553,6 +567,8 @@ void print_rule()
   }
   else
   {
+        std::cout << "\n\nHMMM:\n\n";
+
     std::cout << "expected a ;\n";
     exit(1);
   }
@@ -561,7 +577,7 @@ void print_rule()
 
 void scan_rule()
 {
-  std::cout << " <Scan> ::= get ( <IDs> );\n";
+  std::cout << " <Scan> -> get ( <IDs> );\n";
   if(singletoken.first == "get")
   {
     scanner();
@@ -616,20 +632,15 @@ void while_rule()
   {
     scanner();
     condition();
-  }
-  else
-  {
-    std::cout << "Expected a (\n";
-    exit(1);
-  }
-  if(singletoken.first == ")")
-  {
-    scanner();
-  }
-  else
-  {
-    std::cout << "Expected a )\n";
-    exit(1);
+    if(singletoken.first == ")")
+    {
+      scanner();
+    }
+    else
+    {
+      std::cout << "expected a )\n";
+      exit(1);
+    }
   }
   statement();
   if(singletoken.first == "endwhile")
@@ -653,34 +664,40 @@ void condition()
 
 void relop()
 {
-  std::cout << "<Relop> ::= == | != | > | < | <= | =>\n";
+  std::cout << "<Relop> -> ";
   if(singletoken.first == "==")
   {
+    std::cout << "==\n";
     scanner();
   }
   else if (singletoken.first == "!=")
   {
+    std::cout << "!=\n";
     scanner();
   }
   else if (singletoken.first == ">")
   {
+    std::cout << ">\n";
     scanner();
   }
   else if (singletoken.first == "<")
   {
+    std::cout << "<\n";
     scanner();
   }
   else if (singletoken.first == "<=")
   {
+    std::cout << "<=\n";
     scanner();
   }
   else if (singletoken.first == "=>")
   {
+    std::cout << "=>\n";
     scanner();
   }
   else
   {
-    std::cout << "Expected == | != | > | < | <= | =>\n";
+    std::cout << "Expected == | != | > | < | <= | =>\n FOR: " << singletoken.first << '\n';
     exit(1);
   }
 }
@@ -713,7 +730,7 @@ void expression_prime()
   else
   {
     std::cout << "<Empty>\n";
-    scanner();
+    //std::cout << "\n\nSCANNING\n\n";
   }
 }
 
@@ -781,7 +798,7 @@ void primary()
   if(singletoken.second == "IDENTIFIER")
   {
     std::cout << "<Identifier>\n";
-    std::cout << "\n\nBruh 4\n\n";
+    // std::cout << "\n\nBruh 4\n\n";
     identifier();
     primary2();
   }
@@ -800,11 +817,18 @@ void primary()
     std::cout << "(<Expression>)\n";
     scanner();
     expression();
+    if(singletoken.first == ")")
+    {
+      scanner();
+    }
+    else
+    {
+      // std::cout << "\n\nBRUHHHHH\n\n";
+      std::cout << "Expected a )\n FOR: " << singletoken.first << '\n';
+      exit(1);
+    }
   }
-  else if(singletoken.first == ")")
-  {
-    scanner();
-  }
+
   else if(singletoken.first == "true")
   {
     std::cout << "true\n";
@@ -823,7 +847,7 @@ void primary()
 
 void primary2()
 {
-  std::cout << "Primary 2 ->";
+  std::cout << "<Primary 2> -> ";
 
   if(singletoken.first == "(")
   {
@@ -836,7 +860,7 @@ void primary2()
     }
     else
     {
-      std::cout<< "HERE!!!\n";
+      // std::cout<< "HERE!!!\n";
       std::cout << "Expected a )\n";
       exit(1);
     }
@@ -851,7 +875,7 @@ void identifier()
 {
   if(singletoken.second == "IDENTIFIER")
   {
-    std::cout << " <Identifier> -> " << singletoken.first << '\n';
+    std::cout << "<Identifier> -> " << singletoken.first << '\n';
     scanner();
   }
   else
@@ -865,7 +889,7 @@ void integer()
 {
   if(singletoken.second == "INTEGER")
   {
-    std::cout << " <Integer> -> " << singletoken.first << '\n';
+    std::cout << "<Integer> -> " << singletoken.first << '\n';
     scanner();
   }
   else
@@ -879,7 +903,7 @@ void real()
 {
   if(singletoken.second == "REAL")
   {
-    std::cout << " <Real> -> " << singletoken.first << '\n';
+    std::cout << "<Real> -> " << singletoken.first << '\n';
     scanner();
   }
   else

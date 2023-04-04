@@ -1,0 +1,419 @@
+Bash: Compile ....
+Bash: Run the program
+Enter file name: 
+Token                                         Lexi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+IDENTIFIER                                function
+IDENTIFIER                               convert1x
+SEPERATOR                                        (
+IDENTIFIER                                    fahr
+KEYWORD                                        int
+SEPERATOR                                        )
+SEPERATOR                                        {
+KEYWORD                                     return
+INTEGER                                          5
+OPERATOR                                         *
+SEPERATOR                                        (
+IDENTIFIER                                    fahr
+OPERATOR                                         -
+INTEGER                                         32
+SEPERATOR                                        )
+OPERATOR                                         /
+INTEGER                                          9
+SEPERATOR                                        ;
+SEPERATOR                                        }
+SEPERATOR                                        #
+KEYWORD                                        int
+IDENTIFIER                                     low
+SEPERATOR                                        ,
+IDENTIFIER                                    high
+SEPERATOR                                        ,
+IDENTIFIER                                    step
+SEPERATOR                                        ;
+SEPERATOR                                        #
+IDENTIFIER                                     get
+SEPERATOR                                        (
+IDENTIFIER                                     low
+SEPERATOR                                        ,
+IDENTIFIER                                    high
+SEPERATOR                                        ,
+IDENTIFIER                                    step
+SEPERATOR                                        )
+SEPERATOR                                        ;
+KEYWORD                                      while
+SEPERATOR                                        (
+IDENTIFIER                                     low
+OPERATOR                                        <=
+IDENTIFIER                                    high
+SEPERATOR                                        )
+SEPERATOR                                        {
+IDENTIFIER                                     put
+SEPERATOR                                        (
+IDENTIFIER                                     low
+SEPERATOR                                        )
+SEPERATOR                                        ;
+IDENTIFIER                                     put
+SEPERATOR                                        (
+IDENTIFIER                               convert1x
+SEPERATOR                                        (
+IDENTIFIER                                     low
+SEPERATOR                                        )
+SEPERATOR                                        )
+SEPERATOR                                        ;
+IDENTIFIER                                     low
+OPERATOR                                         =
+IDENTIFIER                                     low
+OPERATOR                                         +
+IDENTIFIER                                    step
+SEPERATOR                                        ;
+SEPERATOR                                        }
+KEYWORD                                   endwhile
+
+
+Now Checking rules for Rat23s
+===============================
+<Rat23S> -> <Opt Function Definitions> # <Opt Declaration List> # <Statement List>
+<Opt Function Definitions> -> <Function Definitions> | <Empty>
+<Function Definitions> -> <Function> <FunctionDefintion2>>
+<Function> -> function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+
+
+||   Token: IDENTIFIER      Lexeme: function || 
+<Identifier> -> convert1x
+
+
+||   Token: IDENTIFIER      Lexeme: convert1x || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Opt Parameter List> -> <Parameter List>
+<Parameter List> ::= <Parameter> <Parameter List2>
+<Parameter> -> <IDs > <Qualifier>
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> fahr
+
+
+||   Token: IDENTIFIER      Lexeme: fahr || 
+<IDs 2> -> <Empty>
+<Qualifier> -> int
+
+
+||   Token: KEYWORD      Lexeme: int || 
+<Parameter List 2> -><EMPTY>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Opt Declaration List> -> <Empty>
+<Body> -> {<Statement List>}
+
+||   Token: SEPERATOR      Lexeme: { || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Return>
+<Return> -> return <Return 2>
+
+
+||   Token: KEYWORD      Lexeme: return || 
+<Return 2> -> return <Expression>;
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 5
+
+
+||   Token: INTEGER      Lexeme: 5 || 
+<Term Prime> -> *<Factor> <Term Prime>
+
+
+||   Token: OPERATOR      Lexeme: * || 
+<Factor> -> <Primary>
+<Primary> ->(<Expression>)
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> fahr
+
+
+||   Token: IDENTIFIER      Lexeme: fahr || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> - <Term> <Expression Prime>
+
+
+||   Token: OPERATOR      Lexeme: - || 
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 32
+
+
+||   Token: INTEGER      Lexeme: 32 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Term Prime> -> / <Factor> <Term Prime>
+
+
+||   Token: OPERATOR      Lexeme: / || 
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 9
+
+
+||   Token: INTEGER      Lexeme: 9 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: } || 
+<Function 2> -> <Empty>
+
+||   Token: SEPERATOR      Lexeme: # || 
+<Opt Declaration List> -> <Declaration List>
+<Declaration List> -> <Declaration> ; <Declaration List 2>
+<Declaration> -> <Qualifier > <IDs>
+<Qualifier> -> int
+
+
+||   Token: KEYWORD      Lexeme: int || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> low
+
+
+||   Token: IDENTIFIER      Lexeme: low || 
+<IDs 2> -> , <IDs>
+
+
+||   Token: SEPERATOR      Lexeme: , || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> high
+
+
+||   Token: IDENTIFIER      Lexeme: high || 
+<IDs 2> -> , <IDs>
+
+
+||   Token: SEPERATOR      Lexeme: , || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> step
+
+
+||   Token: IDENTIFIER      Lexeme: step || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Declaration List 2> -> <EMPTY>
+
+
+||   Token: SEPERATOR      Lexeme: # || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Scan>
+ <Scan> -> get ( <IDs> );
+
+
+||   Token: IDENTIFIER      Lexeme: get || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> low
+
+
+||   Token: IDENTIFIER      Lexeme: low || 
+<IDs 2> -> , <IDs>
+
+
+||   Token: SEPERATOR      Lexeme: , || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> high
+
+
+||   Token: IDENTIFIER      Lexeme: high || 
+<IDs 2> -> , <IDs>
+
+
+||   Token: SEPERATOR      Lexeme: , || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> step
+
+
+||   Token: IDENTIFIER      Lexeme: step || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <While>
+<While> ::= while ( <Condition> ) <Statement> endwhile
+
+
+||   Token: KEYWORD      Lexeme: while || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Condition> ::= <Expression> <Relop> <Expression>
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> low
+
+
+||   Token: IDENTIFIER      Lexeme: low || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+<Relop> -> <=
+
+
+||   Token: OPERATOR      Lexeme: <= || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> high
+
+
+||   Token: IDENTIFIER      Lexeme: high || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Statement> -> <Compound>
+<Compound> -> { <Statement List> }
+
+
+||   Token: SEPERATOR      Lexeme: { || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Print>
+<Print> -> put ( <Expression>);
+
+
+||   Token: IDENTIFIER      Lexeme: put || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> low
+
+
+||   Token: IDENTIFIER      Lexeme: low || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Print>
+<Print> -> put ( <Expression>);
+
+
+||   Token: IDENTIFIER      Lexeme: put || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> convert1x
+
+
+||   Token: IDENTIFIER      Lexeme: convert1x || 
+<Primary 2> -> (<IDs>)
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> low
+
+
+||   Token: IDENTIFIER      Lexeme: low || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Identifier>
+<Assign> -> <Identifier> = <Expression>;
+<Identifier> -> low
+
+
+||   Token: IDENTIFIER      Lexeme: low || 
+
+
+||   Token: OPERATOR      Lexeme: = || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> low
+
+
+||   Token: IDENTIFIER      Lexeme: low || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> + <Term> <Expression Prime>
+
+
+||   Token: OPERATOR      Lexeme: + || 
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> step
+
+
+||   Token: IDENTIFIER      Lexeme: step || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: } || 
+
+
+||   Token: KEYWORD      Lexeme: endwhile || 
+<Statement List 2> -> <Empty>
+
+
+end
+
+Bash: The script file will now terminate

@@ -16,9 +16,13 @@ int main() {
 
   auto token = Lexer(fname);
 
+  Display(token);
+
+  std::cout << "\n\nNow Checking rules for Rat23s\n";
+  std::cout << "===============================\n";
   parser(token);
 
-  std::cout << "end\n\n";
+  std::cout << "\n\nend\n\n";
 
   // std::cout << "\n";
 
