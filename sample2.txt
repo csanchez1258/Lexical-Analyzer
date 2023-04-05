@@ -1,0 +1,23 @@
+[*this code should get the grade and add it to the total and get the mean*]
+function averageNum(mean1 double)
+{
+    int sum = 34 + 100 + 43 + 99 + 78 + 89
+    double avg = (sum + mean1)/ 7;
+    return avg;
+}
+
+#
+    double grade, boost, curve; 
+#
+
+get(grade, average)
+if (grade < curve)
+{
+    put (grade);
+    put (averageNum(grade)) [*this should add grade to the function*]
+    curve += grade
+}
+else [*if grade is above curve do nothing*]
+{
+    return 0;
+}

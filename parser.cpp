@@ -67,8 +67,17 @@ void rat23s()
 
 void opt_functions()
 {
-  std::cout << "<Opt Function Definitions> -> <Function Definitions> | <Empty>\n";
-  function_def();
+  std::cout << "<Opt Function Definitions> -> ";
+  if(singletoken.first == "function")
+  {
+    std::cout << "<Function Definitions>\n";
+    //scanner();
+    function_def();
+  }
+  else
+  {
+    std::cout << "<Empty>\n";
+  }
 }
 
 void function_def()
@@ -192,7 +201,7 @@ void qualifier()
   }
   else
   {
-    std::cout << "Expected a INT, REAL, or BOOL\n";
+    std::cout << "Expected a INT, REAL, or BOOL\n FOR: " << singletoken.first;
     exit(1);
   }
 }
@@ -375,7 +384,7 @@ void statement()
   }
   else
   {
-    std::cout << "expected a statement\n FOR: " << singletoken.first << '\n';
+    std::cout << "expected a statement\n FOR: " << singletoken.first <<"\n" << singletoken.second <<   '\n';
     exit(1);
   }
 }

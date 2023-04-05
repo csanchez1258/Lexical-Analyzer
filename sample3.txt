@@ -1,0 +1,6 @@
+#
+    int sum, avg;
+#
+
+ sum = 3 + 3;
+ avg = sum / 2;
