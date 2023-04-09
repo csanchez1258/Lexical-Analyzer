@@ -4,41 +4,45 @@
 #include "parser.h"
 
 std::vector<std::pair<std::string, std::string>> tokensglobal;
+std::vector<std::pair<std::string, std::string>> tokensinfoglobal;
 std::pair<std::string, std::string> singletoken;
 std::vector<std::pair<std::string, std::string>>::iterator it;
 int count = 0;
+int infoi = 0;
 
+
+//Needed a new scanner fucntion to grab tokens one by one from our list of all tokens
 void scanner()
 {
   std::cout << "\n\n||   Token: " << (*it).second << "      Lexeme: " << (*it).first << " || \n";
   if(it+1 != tokensglobal.end())
   {
     singletoken = *(++it);
+    ++infoi;
   }
 }
 
+
+//function to grab the next token without modifying our iterator
 std::pair<std::string, std::string> nexttk(int step) 
 {
   auto next_token = *(it + step);
   return next_token;
 }
 
-
-void parser(const std::vector<std::pair<std::string, std::string>> &tokens)
+//this parser will begin all rule check by calling rat23s()
+void parser(const std::vector<std::pair<std::string, std::string>> &tokens, const std::vector<std::pair<std::string, std::string>> &tokeninfo)
 {
+  //set global variables to tokens and tokeninfo
   tokensglobal = tokens;
+  tokensinfoglobal = tokeninfo;
   it = tokensglobal.begin();
   singletoken = *it;
-  // std::cout << "HERE" << (*it).first << (*it).second;
-  //check();
   rat23s();
 }
 
-void check()
-{
-    std::cout << "CHECK\n" << (*it).first << (*it).second << "\n\n";
-}
 
+//rat23s() will begin all rule checks for a single token and continue on the chain of rules.
 void rat23s()
 {
   // if (switch) 
@@ -49,7 +53,7 @@ void rat23s()
   else 
   {
     std::cout << "Expected #\n"; 
-    exit(1);
+    errorresult(singletoken.first, "#");
   }
 
   opt_declaration_list();
@@ -59,7 +63,7 @@ void rat23s()
   else
   {
     std::cout << "Expected #\n";
-    exit(1);
+    errorresult(singletoken.first, "#");
   }
 
   statement_list();
@@ -111,9 +115,7 @@ void function()
   }
   else
   {
-    std::cout << "TOKEN: " << singletoken.first << '\n';
-    std::cout << "Expected a function keyword\n";
-    exit(1);
+    errorresult(singletoken.first, "function");
   }
   // std::cout << "\n\nBruh 5\n\n";
   identifier();
@@ -123,8 +125,7 @@ void function()
   }
   else
   {
-    std::cout << "Expected a (";
-    exit(1);
+    errorresult(singletoken.first, "(");
   }
   opt_parameter_list();
   if(singletoken.first == ")")
@@ -132,7 +133,7 @@ void function()
   else
   {
     std::cout << "Expected a )";
-    exit(1);
+    errorresult(singletoken.first, ")");
   }
   opt_declaration_list();
   body();
@@ -202,7 +203,7 @@ void qualifier()
   else
   {
     std::cout << "Expected a INT, REAL, or BOOL\n FOR: " << singletoken.first;
-    exit(1);
+    errorresult(singletoken.first, "INT, REAL, or BOOL");
   }
 }
 
@@ -220,13 +221,13 @@ void body()
     else
     {
       std::cout << "Expected a }\n";
-      exit(1);
+      errorresult(singletoken.first, "}");
     }
   }
   else
   {
     std::cout << "expected a {\n";
-    exit(1);
+    errorresult(singletoken.first, "{");
   }
 }
 
@@ -384,8 +385,7 @@ void statement()
   }
   else
   {
-    std::cout << "expected a statement\n FOR: " << singletoken.first <<"\n" << singletoken.second <<   '\n';
-    exit(1);
+    errorresult(singletoken.first, "statement");
   }
 }
 
@@ -399,12 +399,15 @@ void compound()
   }
   else 
   {
-    std::cout << "Expected a {\n";
-    exit(1);
+    errorresult(singletoken.first, "{");
   }
   if (singletoken.first == "}")
   {
     scanner();
+  }
+  else
+  {
+    errorresult(singletoken.first, "}");
   }
 }
 
@@ -420,6 +423,10 @@ void assign()
   {
     scanner();
   }
+  else
+  {
+    errorresult(singletoken.first, "=");
+  }
   expression();
   if(singletoken.first == ";")
   {
@@ -427,8 +434,7 @@ void assign()
   }
   else
   {
-    std::cout << "Expected a ;\n";
-    exit(1);
+    errorresult(singletoken.first, ";");
   }
 }
 
@@ -441,8 +447,7 @@ void if_rule()
   }
   else
   {
-    std::cout << "Expected a if\n";
-    exit(1);
+    errorresult(singletoken.first, "if");
   }
   if(singletoken.first == "(")
   {
@@ -451,8 +456,8 @@ void if_rule()
   }
   else
   {
-    std::cout << "Expected a (\n";
-    exit(1);
+    errorresult(singletoken.first, "(");
+
   }
   if(singletoken.first == ")")
   {
@@ -460,8 +465,8 @@ void if_rule()
   }
   else 
   {
-    std::cout << "Expected a )\n";
-    exit(1);
+    errorresult(singletoken.first, ")");
+
   }
   statement();
   if_rule2();
@@ -479,8 +484,8 @@ void if_rule2()
     }
     else
     {
-      std::cout << "Exptected fi\n";
-      exit(1);
+     errorresult(singletoken.first, "fi");
+
     }
   }
   else if(singletoken.first == "fi")
@@ -489,8 +494,7 @@ void if_rule2()
   }
   else
   {
-    std::cout << "Expected a else or fi\n";
-    exit(1);
+    errorresult(singletoken.first, "else or fi");
   }
 }
 
@@ -504,8 +508,7 @@ void return_rule()
   }
   else
   {
-    std::cout << "Expected a return\n";
-    exit(1);
+    errorresult(singletoken.first, "return");
   }
   return_rule2();
 }
@@ -534,8 +537,7 @@ void return_rule2()
   }
   else
   {
-    std::cout << "Expected a ; or an expression\n";
-    exit(1);
+    errorresult(singletoken.first, "; or an expression");
   }
 }
 
@@ -548,8 +550,7 @@ void print_rule()
   }
   else
   {
-    std::cout << "Expected a put";
-    exit(1);
+    errorresult(singletoken.first, "put");
   }
   if(singletoken.first == "(")
   {
@@ -561,14 +562,12 @@ void print_rule()
     }
     else
     {
-      std::cout << "Expected a )\n";
-      exit(1);
+      errorresult(singletoken.first, ")");
     }
   }
   else
   {
-    std::cout << "Expected a (\n";
-    exit(1);
+    errorresult(singletoken.first, ")");
   }
   if(singletoken.first == ";")
   {
@@ -576,10 +575,7 @@ void print_rule()
   }
   else
   {
-        std::cout << "\n\nHMMM:\n\n";
-
-    std::cout << "expected a ;\n";
-    exit(1);
+    errorresult(singletoken.first, ";");
   }
     
 }
@@ -593,8 +589,8 @@ void scan_rule()
   }
   else 
   {
-    std::cout << "Expected a get\n";
-    exit(1);
+    errorresult(singletoken.first, "get");
+
   }
   if(singletoken.first == "(")
   {
@@ -603,8 +599,8 @@ void scan_rule()
   }
   else
   {
-    std::cout << "Exptected a (\n";
-    exit(1);
+    errorresult(singletoken.first, "(");
+
   }
   if(singletoken.first == ")")
   {
@@ -612,7 +608,7 @@ void scan_rule()
   }
   else
   {
-    std::cout << "Expected a )\n";
+    errorresult(singletoken.first, ")");
   }
   if(singletoken.first == ";")
   {
@@ -620,7 +616,7 @@ void scan_rule()
   }
   else
   {
-    std::cout << "Expected a ;\n";
+    errorresult(singletoken.first, ";");
   }
 }
 
@@ -633,8 +629,8 @@ void while_rule()
   }
   else
   {
-    std::cout << "Expected a while\n";
-    exit(1);
+    errorresult(singletoken.first, "while");
+
   }
 
   if(singletoken.first == "(")
@@ -647,9 +643,12 @@ void while_rule()
     }
     else
     {
-      std::cout << "expected a )\n";
-      exit(1);
+    errorresult(singletoken.first, ")");
     }
+  }
+  else
+  {
+    errorresult(singletoken.first, "(");
   }
   statement();
   if(singletoken.first == "endwhile")
@@ -658,8 +657,7 @@ void while_rule()
   }
   else
   {
-    std::cout << "Expected a endwhile\n";
-    exit(1);
+    errorresult(singletoken.first, "endwhile");
   }
 }
 
@@ -706,8 +704,7 @@ void relop()
   }
   else
   {
-    std::cout << "Expected == | != | > | < | <= | =>\n FOR: " << singletoken.first << '\n';
-    exit(1);
+    errorresult(singletoken.first, "== | != | > | < | <= | =>");
   }
 }
 
@@ -796,8 +793,7 @@ void factor()
   }
   else
   {
-    std::cout << "Expected a Primary\n";
-    exit(1);
+    errorresult(singletoken.first, "primary");
   }
 }
 
@@ -833,8 +829,7 @@ void primary()
     else
     {
       // std::cout << "\n\nBRUHHHHH\n\n";
-      std::cout << "Expected a )\n FOR: " << singletoken.first << '\n';
-      exit(1);
+     errorresult(singletoken.first, ")");
     }
   }
 
@@ -870,8 +865,8 @@ void primary2()
     else
     {
       // std::cout<< "HERE!!!\n";
-      std::cout << "Expected a )\n";
-      exit(1);
+    errorresult(singletoken.first, ")");
+
     }
   }
   else
@@ -889,8 +884,7 @@ void identifier()
   }
   else
   {
-    std::cout << "Expected an IDENTIFIER\n" << "for: " << singletoken.first;
-    exit(1);
+    errorresult(singletoken.first, "IDENTIFIER");
   }
 }
 
@@ -903,8 +897,8 @@ void integer()
   }
   else
   {
-    std::cout << "Expected an Integer\n";
-    exit(1);
+    errorresult(singletoken.first, "INTEGER");
+
   }
 }
 
@@ -917,7 +911,15 @@ void real()
   }
   else
   {
-    std::cout << "Expected a Real\n";
-    exit(1);
+    errorresult(singletoken.first, "REAL");
   }
+}
+
+//function to return the error result with the line number, file, and type of error
+void errorresult(std::string tokenresult, std::string type)
+{
+  std::cout << "=================================================\n";  
+  std::cout << "Expected a " << type << " for token: " << tokenresult << ", In line number, " << tokensinfoglobal[infoi].first << ", In file: " << tokensinfoglobal[infoi].second << '\n';
+  std::cout << "=================================================\n";
+  exit(1);
 }

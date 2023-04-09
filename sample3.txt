@@ -1,6 +1,33 @@
+function convertkg(kg int)
+{   
+    weight = 125;
+    weight = kg;
+    lbs =  kg * 2.2;
+    return lbs *16;
+}
+
+function overline (count int)
+{
+    return count + 1 ;
+}
+
+function underline (count int)
+{
+    return count + 1;
+}
+
 #
-    int sum, avg;
+    int conversion, sumover, sumunder, weightline; [*declarations*]
 #
 
- sum = 3 + 3;
- avg = sum / 2;
+put(convertkg(conversion));
+if (convserion < weightline)
+{
+    put(underline(sumunder));
+}
+fi;
+if (conversion > weightline)  
+{
+    put(overline(sumover));
+}
+fi;

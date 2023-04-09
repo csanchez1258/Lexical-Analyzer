@@ -1,158 +1,598 @@
 Bash: Compile ....
 Bash: Run the program
 Enter file name: 
-
 Token                                         Lexi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-KEYWORD                                       bool
-IDENTIFIER                                finished
+IDENTIFIER                                function
+IDENTIFIER                               convertkg
+SEPERATOR                                        (
+IDENTIFIER                                      kg
+KEYWORD                                        int
+SEPERATOR                                        )
+SEPERATOR                                        {
+IDENTIFIER                                  weight
 OPERATOR                                         =
-KEYWORD                                      false
+INTEGER                                        125
+SEPERATOR                                        ;
+IDENTIFIER                                  weight
+OPERATOR                                         =
+IDENTIFIER                                      kg
+SEPERATOR                                        ;
+IDENTIFIER                                     lbs
+OPERATOR                                         =
+IDENTIFIER                                      kg
+OPERATOR                                         *
+REAL                                           2.2
+SEPERATOR                                        ;
+KEYWORD                                     return
+IDENTIFIER                                     lbs
+OPERATOR                                         *
+INTEGER                                         16
+SEPERATOR                                        ;
+SEPERATOR                                        }
+IDENTIFIER                                function
+IDENTIFIER                                overline
+SEPERATOR                                        (
+IDENTIFIER                                   count
+KEYWORD                                        int
+SEPERATOR                                        )
+SEPERATOR                                        {
+KEYWORD                                     return
+IDENTIFIER                                   count
+OPERATOR                                         +
+INTEGER                                          1
+SEPERATOR                                        ;
+SEPERATOR                                        }
+IDENTIFIER                                function
+IDENTIFIER                               underline
+SEPERATOR                                        (
+IDENTIFIER                                   count
+KEYWORD                                        int
+SEPERATOR                                        )
+SEPERATOR                                        {
+KEYWORD                                     return
+IDENTIFIER                                   count
+OPERATOR                                         +
+INTEGER                                          1
+SEPERATOR                                        ;
+SEPERATOR                                        }
+SEPERATOR                                        #
+KEYWORD                                        int
+IDENTIFIER                              conversion
+SEPERATOR                                        ,
+IDENTIFIER                                 sumover
+SEPERATOR                                        ,
+IDENTIFIER                                sumunder
+SEPERATOR                                        ,
+IDENTIFIER                              weightline
+SEPERATOR                                        ;
+SEPERATOR                                        #
+IDENTIFIER                                     put
+SEPERATOR                                        (
+IDENTIFIER                               convertkg
+SEPERATOR                                        (
+IDENTIFIER                              conversion
+SEPERATOR                                        )
+SEPERATOR                                        )
 SEPERATOR                                        ;
 KEYWORD                                         if
 SEPERATOR                                        (
-IDENTIFIER                                finished
-OPERATOR                                        ==
-KEYWORD                                      false
+IDENTIFIER                              convserion
+OPERATOR                                         <
+IDENTIFIER                              weightline
 SEPERATOR                                        )
 SEPERATOR                                        {
-KEYWORD                                        int
-IDENTIFIER                               my_matrix
-SEPERATOR                                        [
-INTEGER                                          2
-SEPERATOR                                        ]
-SEPERATOR                                        [
-INTEGER                                          2
-SEPERATOR                                        ]
-OPERATOR                                         =
-SEPERATOR                                        [
-SEPERATOR                                        [
-INTEGER                                          2
-SEPERATOR                                        ,
-INTEGER                                          3
-SEPERATOR                                        ]
-SEPERATOR                                        [
-INTEGER                                          4
-SEPERATOR                                        ,
-INTEGER                                          3
-SEPERATOR                                        ]
-SEPERATOR                                        ]
-SEPERATOR                                        ;
-KEYWORD                                        int
-IDENTIFIER                                    left
-SEPERATOR                                        ;
-KEYWORD                                        int
-IDENTIFIER                                   right
-SEPERATOR                                        ;
-KEYWORD                                      float
-UNKNOWN                        65.NOTSUPPOSED.WORK
-OPERATOR                                         =
-REAL                                           0.0
-SEPERATOR                                        ;
-KEYWORD                                      while
+IDENTIFIER                                     put
 SEPERATOR                                        (
-IDENTIFIER                                       i
-OPERATOR                                         <
-INTEGER                                          2
-SEPERATOR                                        )
-SEPERATOR                                        {
-KEYWORD                                      while
+IDENTIFIER                               underline
 SEPERATOR                                        (
-IDENTIFIER                                       j
-OPERATOR                                         <
-INTEGER                                          2
+IDENTIFIER                                sumunder
+SEPERATOR                                        )
+SEPERATOR                                        )
+SEPERATOR                                        ;
+SEPERATOR                                        }
+IDENTIFIER                                      fi
+SEPERATOR                                        ;
+KEYWORD                                         if
+SEPERATOR                                        (
+IDENTIFIER                              conversion
+OPERATOR                                         >
+IDENTIFIER                              weightline
 SEPERATOR                                        )
 SEPERATOR                                        {
-IDENTIFIER                                    cout
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                               my_matrix
-SEPERATOR                                        [
-IDENTIFIER                                       i
-SEPERATOR                                        ]
-SEPERATOR                                        [
-IDENTIFIER                                       j
-SEPERATOR                                        ]
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                    endl
-SEPERATOR                                        ;
-IDENTIFIER                                       j
-OPERATOR                                         =
-IDENTIFIER                                       j
-OPERATOR                                         +
-INTEGER                                          1
+IDENTIFIER                                     put
+SEPERATOR                                        (
+IDENTIFIER                                overline
+SEPERATOR                                        (
+IDENTIFIER                                 sumover
+SEPERATOR                                        )
+SEPERATOR                                        )
 SEPERATOR                                        ;
 SEPERATOR                                        }
-IDENTIFIER                                       i
-OPERATOR                                         =
-IDENTIFIER                                       i
-OPERATOR                                         +
-INTEGER                                          1
+IDENTIFIER                                      fi
 SEPERATOR                                        ;
-SEPERATOR                                        }
-IDENTIFIER                                   right
-OPERATOR                                         =
-IDENTIFIER                               my_matrix
-SEPERATOR                                        [
-INTEGER                                          0
-SEPERATOR                                        ]
-SEPERATOR                                        [
-INTEGER                                          1
-SEPERATOR                                        ]
-OPERATOR                                         *
-IDENTIFIER                               my_matrix
-SEPERATOR                                        [
-INTEGER                                          1
-SEPERATOR                                        ]
-SEPERATOR                                        [
-INTEGER                                          1
-SEPERATOR                                        ]
-SEPERATOR                                        ;
-IDENTIFIER                                    left
-OPERATOR                                         =
-IDENTIFIER                               my_matrix
-SEPERATOR                                        [
-INTEGER                                          0
-SEPERATOR                                        ]
-SEPERATOR                                        [
-INTEGER                                          0
-SEPERATOR                                        ]
-OPERATOR                                         *
-IDENTIFIER                               my_matrix
-SEPERATOR                                        [
-INTEGER                                          1
-SEPERATOR                                        ]
-SEPERATOR                                        [
-INTEGER                                          0
-SEPERATOR                                        ]
-SEPERATOR                                        ;
-IDENTIFIER                                  answer
-OPERATOR                                         =
-IDENTIFIER                                    left
-OPERATOR                                         *
-IDENTIFIER                                   right
-SEPERATOR                                        ;
-IDENTIFIER                                    cout
-OPERATOR                                         <
-OPERATOR                                         <
-SEPERATOR                                        "
-IDENTIFIER                                     The
-IDENTIFIER                             determinant
-IDENTIFIER                                      of
-IDENTIFIER                                     the
-IDENTIFIER                                  matrix
-IDENTIFIER                                      is
-SEPERATOR                                        :
-SEPERATOR                                        "
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                  answer
-SEPERATOR                                        ;
-IDENTIFIER                                finished
-OPERATOR                                         =
-KEYWORD                                       true
-SEPERATOR                                        ;
-SEPERATOR                                        }
+
+
+Now Checking rules for Rat23s
+===============================
+<Rat23S> -> <Opt Function Definitions> # <Opt Declaration List> # <Statement List>
+<Opt Function Definitions> -> <Function Definitions>
+<Function Definitions> -> <Function> <FunctionDefintion2>>
+<Function> -> function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+
+
+||   Token: IDENTIFIER      Lexeme: function || 
+<Identifier> -> convertkg
+
+
+||   Token: IDENTIFIER      Lexeme: convertkg || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Opt Parameter List> -> <Parameter List>
+<Parameter List> ::= <Parameter> <Parameter List2>
+<Parameter> -> <IDs > <Qualifier>
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> kg
+
+
+||   Token: IDENTIFIER      Lexeme: kg || 
+<IDs 2> -> <Empty>
+<Qualifier> -> int
+
+
+||   Token: KEYWORD      Lexeme: int || 
+<Parameter List 2> -><EMPTY>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Opt Declaration List> -> <Empty>
+<Body> -> {<Statement List>}
+
+||   Token: SEPERATOR      Lexeme: { || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Identifier>
+<Assign> -> <Identifier> = <Expression>;
+<Identifier> -> weight
+
+
+||   Token: IDENTIFIER      Lexeme: weight || 
+
+
+||   Token: OPERATOR      Lexeme: = || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 125
+
+
+||   Token: INTEGER      Lexeme: 125 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Identifier>
+<Assign> -> <Identifier> = <Expression>;
+<Identifier> -> weight
+
+
+||   Token: IDENTIFIER      Lexeme: weight || 
+
+
+||   Token: OPERATOR      Lexeme: = || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> kg
+
+
+||   Token: IDENTIFIER      Lexeme: kg || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Identifier>
+<Assign> -> <Identifier> = <Expression>;
+<Identifier> -> lbs
+
+
+||   Token: IDENTIFIER      Lexeme: lbs || 
+
+
+||   Token: OPERATOR      Lexeme: = || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> kg
+
+
+||   Token: IDENTIFIER      Lexeme: kg || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> *<Factor> <Term Prime>
+
+
+||   Token: OPERATOR      Lexeme: * || 
+<Factor> -> <Primary>
+<Primary> -><Real>
+<Real> -> 2.2
+
+
+||   Token: REAL      Lexeme: 2.2 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Return>
+<Return> -> return <Return 2>
+
+
+||   Token: KEYWORD      Lexeme: return || 
+<Return 2> -> return <Expression>;
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> lbs
+
+
+||   Token: IDENTIFIER      Lexeme: lbs || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> *<Factor> <Term Prime>
+
+
+||   Token: OPERATOR      Lexeme: * || 
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 16
+
+
+||   Token: INTEGER      Lexeme: 16 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: } || 
+<Function 2> -> <Function_Definitions>
+<Function Definitions> -> <Function> <FunctionDefintion2>>
+<Function> -> function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+
+
+||   Token: IDENTIFIER      Lexeme: function || 
+<Identifier> -> overline
+
+
+||   Token: IDENTIFIER      Lexeme: overline || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Opt Parameter List> -> <Parameter List>
+<Parameter List> ::= <Parameter> <Parameter List2>
+<Parameter> -> <IDs > <Qualifier>
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> count
+
+
+||   Token: IDENTIFIER      Lexeme: count || 
+<IDs 2> -> <Empty>
+<Qualifier> -> int
+
+
+||   Token: KEYWORD      Lexeme: int || 
+<Parameter List 2> -><EMPTY>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Opt Declaration List> -> <Empty>
+<Body> -> {<Statement List>}
+
+||   Token: SEPERATOR      Lexeme: { || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Return>
+<Return> -> return <Return 2>
+
+
+||   Token: KEYWORD      Lexeme: return || 
+<Return 2> -> return <Expression>;
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> count
+
+
+||   Token: IDENTIFIER      Lexeme: count || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> + <Term> <Expression Prime>
+
+
+||   Token: OPERATOR      Lexeme: + || 
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 1
+
+
+||   Token: INTEGER      Lexeme: 1 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: } || 
+<Function 2> -> <Function_Definitions>
+<Function Definitions> -> <Function> <FunctionDefintion2>>
+<Function> -> function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+
+
+||   Token: IDENTIFIER      Lexeme: function || 
+<Identifier> -> underline
+
+
+||   Token: IDENTIFIER      Lexeme: underline || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Opt Parameter List> -> <Parameter List>
+<Parameter List> ::= <Parameter> <Parameter List2>
+<Parameter> -> <IDs > <Qualifier>
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> count
+
+
+||   Token: IDENTIFIER      Lexeme: count || 
+<IDs 2> -> <Empty>
+<Qualifier> -> int
+
+
+||   Token: KEYWORD      Lexeme: int || 
+<Parameter List 2> -><EMPTY>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Opt Declaration List> -> <Empty>
+<Body> -> {<Statement List>}
+
+||   Token: SEPERATOR      Lexeme: { || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Return>
+<Return> -> return <Return 2>
+
+
+||   Token: KEYWORD      Lexeme: return || 
+<Return 2> -> return <Expression>;
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> count
+
+
+||   Token: IDENTIFIER      Lexeme: count || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> + <Term> <Expression Prime>
+
+
+||   Token: OPERATOR      Lexeme: + || 
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 1
+
+
+||   Token: INTEGER      Lexeme: 1 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: } || 
+<Function 2> -> <Empty>
+
+||   Token: SEPERATOR      Lexeme: # || 
+<Opt Declaration List> -> <Declaration List>
+<Declaration List> -> <Declaration> ; <Declaration List 2>
+<Declaration> -> <Qualifier > <IDs>
+<Qualifier> -> int
+
+
+||   Token: KEYWORD      Lexeme: int || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> conversion
+
+
+||   Token: IDENTIFIER      Lexeme: conversion || 
+<IDs 2> -> , <IDs>
+
+
+||   Token: SEPERATOR      Lexeme: , || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> sumover
+
+
+||   Token: IDENTIFIER      Lexeme: sumover || 
+<IDs 2> -> , <IDs>
+
+
+||   Token: SEPERATOR      Lexeme: , || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> sumunder
+
+
+||   Token: IDENTIFIER      Lexeme: sumunder || 
+<IDs 2> -> , <IDs>
+
+
+||   Token: SEPERATOR      Lexeme: , || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> weightline
+
+
+||   Token: IDENTIFIER      Lexeme: weightline || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Declaration List 2> -> <EMPTY>
+
+
+||   Token: SEPERATOR      Lexeme: # || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Print>
+<Print> -> put ( <Expression>);
+
+
+||   Token: IDENTIFIER      Lexeme: put || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> convertkg
+
+
+||   Token: IDENTIFIER      Lexeme: convertkg || 
+<Primary 2> -> (<IDs>)
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> conversion
+
+
+||   Token: IDENTIFIER      Lexeme: conversion || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <If>
+<If> -> if ( <Condition> ) <Statement> <if 2>
+
+
+||   Token: KEYWORD      Lexeme: if || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Condition> ::= <Expression> <Relop> <Expression>
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> convserion
+
+
+||   Token: IDENTIFIER      Lexeme: convserion || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+<Relop> -> <
+
+
+||   Token: OPERATOR      Lexeme: < || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> weightline
+
+
+||   Token: IDENTIFIER      Lexeme: weightline || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Statement> -> <Compound>
+<Compound> -> { <Statement List> }
+
+
+||   Token: SEPERATOR      Lexeme: { || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Print>
+<Print> -> put ( <Expression>);
+
+
+||   Token: IDENTIFIER      Lexeme: put || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> underline
+
+
+||   Token: IDENTIFIER      Lexeme: underline || 
+<Primary 2> -> (<IDs>)
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> sumunder
+
+
+||   Token: IDENTIFIER      Lexeme: sumunder || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: } || 
+<If 2> ::= fi |  else <Statement> fi
+
+
+||   Token: IDENTIFIER      Lexeme: fi || 
+<Statement List 2> -> <Empty>
+
+
+end
 
 Bash: The script file will now terminate

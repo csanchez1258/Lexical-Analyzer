@@ -16,19 +16,19 @@ int main() {
 
   auto token = Lexer(fname);
 
-  Display(token);
+  //for our program we needed to return a pair of two lists
+  //one with the token and lexeme and one with the line number and file name
+  //here we seperate each tokens to their own variable and pass it into the parser()
+  auto tokenlist = token.first;
+  auto tokeninfo = token.second;
+
+  Display(tokenlist);
 
   std::cout << "\n\nNow Checking rules for Rat23s\n";
   std::cout << "===============================\n";
-  parser(token);
+  parser(tokenlist, tokeninfo);
 
   std::cout << "\n\nend\n\n";
-
-  // std::cout << "\n";
-
-  // Display(token);
-
-  // std::cout << "\n";
 
   return 0;
 }

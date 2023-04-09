@@ -1,48 +1,183 @@
 Bash: Compile ....
 Bash: Run the program
 Enter file name: 
-
 Token                                         Lexi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-KEYWORD                                      while
+IDENTIFIER                                function
+IDENTIFIER                                convertL
 SEPERATOR                                        (
-IDENTIFIER                                    fahr
-OPERATOR                                        <=
-IDENTIFIER                                   upper
-SEPERATOR                                        )
-IDENTIFIER                                       a
-OPERATOR                                         =
-REAL                                         23.00
-SEPERATOR                                        ;
-KEYWORD                                   endwhile
-IDENTIFIER                                     sum
-OPERATOR                                         =
-INTEGER                                          0
-SEPERATOR                                        ;
-IDENTIFIER                                 id32132
-OPERATOR                                         =
-REAL                                         20.00
-SEPERATOR                                        ;
-KEYWORD                                        for
-SEPERATOR                                        (
+IDENTIFIER                                     lit
 KEYWORD                                        int
-IDENTIFIER                                       i
-OPERATOR                                         =
-INTEGER                                          0
-SEPERATOR                                        ;
-IDENTIFIER                                       i
-OPERATOR                                         <
-INTEGER                                         10
-SEPERATOR                                        ;
-IDENTIFIER                                       i
-OPERATOR                                         +
-OPERATOR                                         +
 SEPERATOR                                        )
 SEPERATOR                                        {
-IDENTIFIER                                     sum
-OPERATOR                                        +=
-INTEGER                                          1
-SEPERATOR                                        ;
+KEYWORD                                     return
+SEPERATOR                                        (
+IDENTIFIER                                     lit
+OPERATOR                                         *
+REAL                                        33.814
+SEPERATOR                                        )
 SEPERATOR                                        }
+SEPERATOR                                        #
+KEYWORD                                        int
+IDENTIFIER                              conversion
+SEPERATOR                                        ;
+SEPERATOR                                        #
+IDENTIFIER                                     put
+SEPERATOR                                        (
+IDENTIFIER                                convertL
+SEPERATOR                                        (
+IDENTIFIER                              conversion
+SEPERATOR                                        )
+SEPERATOR                                        )
+SEPERATOR                                        ;
+
+
+Now Checking rules for Rat23s
+===============================
+<Rat23S> -> <Opt Function Definitions> # <Opt Declaration List> # <Statement List>
+<Opt Function Definitions> -> <Function Definitions>
+<Function Definitions> -> <Function> <FunctionDefintion2>>
+<Function> -> function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+
+
+||   Token: IDENTIFIER      Lexeme: function || 
+<Identifier> -> convertL
+
+
+||   Token: IDENTIFIER      Lexeme: convertL || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Opt Parameter List> -> <Parameter List>
+<Parameter List> ::= <Parameter> <Parameter List2>
+<Parameter> -> <IDs > <Qualifier>
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> lit
+
+
+||   Token: IDENTIFIER      Lexeme: lit || 
+<IDs 2> -> <Empty>
+<Qualifier> -> int
+
+
+||   Token: KEYWORD      Lexeme: int || 
+<Parameter List 2> -><EMPTY>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Opt Declaration List> -> <Empty>
+<Body> -> {<Statement List>}
+
+||   Token: SEPERATOR      Lexeme: { || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Return>
+<Return> -> return <Return 2>
+
+
+||   Token: KEYWORD      Lexeme: return || 
+<Return 2> -> return <Expression>;
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> ->(<Expression>)
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> lit
+
+
+||   Token: IDENTIFIER      Lexeme: lit || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> *<Factor> <Term Prime>
+
+
+||   Token: OPERATOR      Lexeme: * || 
+<Factor> -> <Primary>
+<Primary> -><Real>
+<Real> -> 33.814
+
+
+||   Token: REAL      Lexeme: 33.814 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+Expected a ;
+<Statement List 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: } || 
+<Function 2> -> <Empty>
+
+||   Token: SEPERATOR      Lexeme: # || 
+<Opt Declaration List> -> <Declaration List>
+<Declaration List> -> <Declaration> ; <Declaration List 2>
+<Declaration> -> <Qualifier > <IDs>
+<Qualifier> -> int
+
+
+||   Token: KEYWORD      Lexeme: int || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> conversion
+
+
+||   Token: IDENTIFIER      Lexeme: conversion || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Declaration List 2> -> <EMPTY>
+
+
+||   Token: SEPERATOR      Lexeme: # || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Print>
+<Print> -> put ( <Expression>);
+
+
+||   Token: IDENTIFIER      Lexeme: put || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> convertL
+
+
+||   Token: IDENTIFIER      Lexeme: convertL || 
+<Primary 2> -> (<IDs>)
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> conversion
+
+
+||   Token: IDENTIFIER      Lexeme: conversion || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Empty>
+
+
+end
 
 Bash: The script file will now terminate

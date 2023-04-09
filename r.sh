@@ -6,9 +6,9 @@
 rm *.o
 
 echo "Bash: Compile ...."
-g++ -Wall -Wextra main.cpp lex.cpp parser.cpp -o lex.o
+g++ -Wall -Wextra main.cpp lex.cpp parser.cpp -o run.o
 
 echo "Bash: Run the program"
-./lex.o
+./run.o
 
 echo "Bash: The script file will now terminate"

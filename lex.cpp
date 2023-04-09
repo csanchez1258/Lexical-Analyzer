@@ -7,6 +7,8 @@
 
 #include "lex.h"
 
+std::vector<std::pair<std::string, std::string>> tokeninfo;
+
 std::vector<std::string> keyword{
     "while",
     "if",
@@ -39,42 +41,87 @@ int state_table[][5] =                         {{0, INTEGER, REAL, IDENTIFER, UN
                        /* STATE 2: REAL */      {REAL, REAL, UNKNOWN, UNKNOWN, REJECT},
                        /* STATE 3: IDENTIFER */ {IDENTIFER, IDENTIFER, UNKNOWN, IDENTIFER, REJECT},
                        /* STATE 4: UNKOWN */    {UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN}};
-std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filename)
+std::pair< std::vector<std::pair<std::string, std::string>>, std::vector<std::pair<std::string, std::string>>> Lexer(const std::string &filename)
 {
   std::ifstream fin(filename, std::ios::binary); // open file
   std::vector<std::pair<std::string, std::string>> ready;
   std::string buffer; // buffer
   std::string tokens;
+  std::string line;
+  std::pair<
+                  std::vector<std::pair<std::string, std::string>>, 
+                  std::vector<std::pair<std::string, std::string>>
+           > ready2;
+  int linenum = 0;
   int col = REJECT;
   int current_state = REJECT;
   //start reading the file
   if (fin.is_open())
   {
-    while (fin >> buffer)
+    // while (fin >> buffer)
+    // {
+    //   buffer += " ";
+    //   tokens += buffer;
+    // }
+
+        while(getline(fin, line))
     {
-      buffer += " ";
-      tokens += buffer;
+      linenum++;
+      line = line + " @" + std::to_string(linenum);
+      line = line + "@ ";
+      for(auto i = line.begin(); i != line.end(); i++)
+      {
+        buffer = *i;
+        tokens += buffer;
+      }
     }
+
+
   }
   else
   {
     std::cout << "unable to open file.\n";
-    return ready;
+    return ready2;
   }
   fin.close();
   std::string temp;
+  int count = 0;
+  bool isline = false;
   //  start traversing the vector
   for (auto i = tokens.begin(); i != tokens.end(); i++)
   {
+    std::string numpush;
     if (*i == ' ')
     {
       temp.clear();
+      continue;
+    }
+    else if(*i == '@' || isline)
+    {
+      isline = true;
+      if(*i == '@')
+      {
+        count++;
+      }
+      if(*i == '@' && count == 2)
+      {
+        isline = false;
+        count = 0;
+        temp.clear();
+        continue;
+      }
       continue;
     }
     else
     {
       temp += *i;
     }
+
+    // if(*std::next(i,3) == '@')
+    // {
+    //   temp.clear();
+    //   continue;
+    // }
     //grab the num of column for current char
     col = FSM_COLM(*i);
 
@@ -101,6 +148,11 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
       // add to check next op
       std::string s(1, *i);
       ready.push_back(std::make_pair(s, "SEPERATOR"));
+
+      numpush = getLineNum(i, tokens.end());
+      tokeninfo.push_back(std::make_pair(numpush, filename));
+
+
       temp.clear();
       current_state = 0;
       continue;
@@ -115,6 +167,11 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
       }
       std::string s(1, *i);
       ready.push_back(std::make_pair(temp, "OPERATOR"));
+
+      numpush = getLineNum(i, tokens.end());
+      tokeninfo.push_back(std::make_pair(numpush, filename));
+
+
       temp.clear();
       current_state = 0;
       continue;
@@ -123,6 +180,12 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
     else if (isKeyword(temp))
     {
       ready.push_back(std::make_pair(temp, "KEYWORD"));
+
+      numpush = getLineNum(i, tokens.end());
+      tokeninfo.push_back(std::make_pair(numpush, filename));
+
+
+
       temp.clear();
       current_state = 0;
       continue;
@@ -135,13 +198,26 @@ std::vector<std::pair<std::string, std::string>> Lexer(const std::string &filena
       if (current_state == REJECT || *std::next(i, 1) == ' ' || isSeperator(next_sep_op) || isOperator(next_sep_op))
       {
         ready.push_back(std::make_pair(temp, LexName(current_state)));
+
+        numpush = getLineNum(i, tokens.end());
+        tokeninfo.push_back(std::make_pair(numpush, filename));
+
+
+
         temp.clear();
         continue;
       }
     }
   }
 
-  return ready;
+  // for(auto i : tokeninfo)
+  // {
+  //   std::cout << i.first << '\t' << i.second << '\n';
+  // }
+
+   ready2 = std::make_pair(ready, tokeninfo);
+
+  return ready2;
 }
 
 int FSM_COLM(char currentChar)
@@ -266,4 +342,47 @@ void Display(const std::vector<std::pair<std::string, std::string>> &ready)
       std::cout << "ERROR: Unknown RETURN VALUE\n";
     }
   }
+}
+
+
+std::string getLineNum(std::string::iterator it, std::string::iterator endpos)
+{
+  std::string stringtemp;
+  std::stringstream ss;
+  bool flag = true;
+  while(flag)
+  {
+    if(*it == '@')
+    {
+      if(*std::next(it,2) == '@')
+      {
+       stringtemp = *std::next(it);
+       flag = false;    
+      }
+      if(*std::next(it, 3) == '@')
+      {
+      ss << *std::next(it);
+      ss << *std::next(it, 2);
+
+      stringtemp = ss.str();
+      flag = false;
+      }
+      if(*std::next(it, 4) == '@')
+      {
+      ss << *std::next(it);
+      ss << *std::next(it, 2);
+      ss << *std::next(it,3);
+
+      stringtemp = ss.str();
+      flag = false;
+      }
+    }
+    if(std::next(it) == endpos)
+    {
+      flag = false;
+    }
+    it++;
+  }
+  
+  return stringtemp;
 }

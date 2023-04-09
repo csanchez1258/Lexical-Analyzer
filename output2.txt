@@ -1,146 +1,495 @@
 Bash: Compile ....
 Bash: Run the program
 Enter file name: 
-
 Token                                         Lexi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-KEYWORD                                     string
-IDENTIFIER                                  name_1
+IDENTIFIER                                function
+IDENTIFIER                              averageNum
+SEPERATOR                                        (
+IDENTIFIER                                   mean1
+KEYWORD                                        int
+SEPERATOR                                        )
+SEPERATOR                                        {
+IDENTIFIER                                     sum
 OPERATOR                                         =
-SEPERATOR                                        "
-IDENTIFIER                                    Jake
-SEPERATOR                                        "
+INTEGER                                         34
+OPERATOR                                         +
+INTEGER                                        100
+OPERATOR                                         +
+INTEGER                                         43
+OPERATOR                                         +
+INTEGER                                         99
+OPERATOR                                         +
+INTEGER                                         78
+OPERATOR                                         +
+INTEGER                                         89
 SEPERATOR                                        ;
-KEYWORD                                     string
-IDENTIFIER                                  name_2
+IDENTIFIER                                     avg
 OPERATOR                                         =
-SEPERATOR                                        "
-IDENTIFIER                                     Bob
-SEPERATOR                                        "
-UNKNOWN                                      1_age
-OPERATOR                                         =
-INTEGER                                         30
+SEPERATOR                                        (
+IDENTIFIER                                     sum
+OPERATOR                                         +
+IDENTIFIER                                   mean1
+SEPERATOR                                        )
+OPERATOR                                         /
+INTEGER                                          7
 SEPERATOR                                        ;
-IDENTIFIER                                   age_1
-OPERATOR                                         =
-INTEGER                                         30
+KEYWORD                                     return
+IDENTIFIER                                     avg
 SEPERATOR                                        ;
-IDENTIFIER                                   age_2
-OPERATOR                                         =
-INTEGER                                         40
+SEPERATOR                                        }
+SEPERATOR                                        #
+KEYWORD                                        int
+IDENTIFIER                                   grade
+SEPERATOR                                        ,
+IDENTIFIER                                   boost
+SEPERATOR                                        ,
+IDENTIFIER                                   curve
 SEPERATOR                                        ;
-IDENTIFIER                                age_diff
-OPERATOR                                         =
-IDENTIFIER                                   age_1
-OPERATOR                                         -
-IDENTIFIER                                   age_2
+SEPERATOR                                        #
+IDENTIFIER                                     get
+SEPERATOR                                        (
+IDENTIFIER                                   grade
+SEPERATOR                                        ,
+IDENTIFIER                                 average
+SEPERATOR                                        )
 SEPERATOR                                        ;
 KEYWORD                                         if
 SEPERATOR                                        (
-IDENTIFIER                                   age_1
-OPERATOR                                         >
-IDENTIFIER                                   age_2
+IDENTIFIER                                   grade
+OPERATOR                                         <
+IDENTIFIER                                   curve
 SEPERATOR                                        )
 SEPERATOR                                        {
-IDENTIFIER                                    cout
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                  name_1
-OPERATOR                                         <
-OPERATOR                                         <
-SEPERATOR                                        "
-IDENTIFIER                                      is
-IDENTIFIER                                   older
-IDENTIFIER                                    than
-SEPERATOR                                        "
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                  name_2
+IDENTIFIER                                     put
+SEPERATOR                                        (
+IDENTIFIER                                   grade
+SEPERATOR                                        )
 SEPERATOR                                        ;
-IDENTIFIER                                    cout
-OPERATOR                                         <
-OPERATOR                                         <
-SEPERATOR                                        "
-IDENTIFIER                                   Their
-IDENTIFIER                                     age
-IDENTIFIER                                      is
-SEPERATOR                                        "
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                   age_1
-OPERATOR                                         <
-OPERATOR                                         <
-SEPERATOR                                        "
-IDENTIFIER                                     and
-SEPERATOR                                        "
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                   age_2
-SEPERATOR                                        ;
-IDENTIFIER                                    cout
-OPERATOR                                         <
-OPERATOR                                         <
-SEPERATOR                                        "
-IDENTIFIER                                   Their
-IDENTIFIER                                     age
-IDENTIFIER                              difference
-IDENTIFIER                                      is
-SEPERATOR                                        "
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                age_diff
+IDENTIFIER                                     put
+SEPERATOR                                        (
+IDENTIFIER                              averageNum
+SEPERATOR                                        (
+IDENTIFIER                                   grade
+SEPERATOR                                        )
+SEPERATOR                                        )
 SEPERATOR                                        ;
 SEPERATOR                                        }
-KEYWORD                                       else
+IDENTIFIER                                      fi
+SEPERATOR                                        ;
+KEYWORD                                         if
+SEPERATOR                                        (
+IDENTIFIER                                   grade
+OPERATOR                                         <
+IDENTIFIER                                   curve
+SEPERATOR                                        )
 SEPERATOR                                        {
-IDENTIFIER                                    cout
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                  name_1
-OPERATOR                                         <
-OPERATOR                                         <
-SEPERATOR                                        "
-IDENTIFIER                                      is
-IDENTIFIER                                   older
-IDENTIFIER                                    than
-SEPERATOR                                        "
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                  name_2
-SEPERATOR                                        ;
-IDENTIFIER                                    cout
-OPERATOR                                         <
-OPERATOR                                         <
-SEPERATOR                                        "
-IDENTIFIER                                   Their
-IDENTIFIER                                     age
-IDENTIFIER                                      is
-SEPERATOR                                        "
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                   age_1
-OPERATOR                                         <
-OPERATOR                                         <
-SEPERATOR                                        "
-IDENTIFIER                                     and
-SEPERATOR                                        "
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                   age_2
-SEPERATOR                                        ;
-IDENTIFIER                                    cout
-OPERATOR                                         <
-OPERATOR                                         <
-SEPERATOR                                        "
-IDENTIFIER                                   Their
-IDENTIFIER                                     age
-IDENTIFIER                              difference
-IDENTIFIER                                      is
-SEPERATOR                                        "
-OPERATOR                                         <
-OPERATOR                                         <
-IDENTIFIER                                age_diff
+KEYWORD                                     return
+INTEGER                                          0
 SEPERATOR                                        ;
 SEPERATOR                                        }
+IDENTIFIER                                      fi
+SEPERATOR                                        ;
+
+
+Now Checking rules for Rat23s
+===============================
+<Rat23S> -> <Opt Function Definitions> # <Opt Declaration List> # <Statement List>
+<Opt Function Definitions> -> <Function Definitions>
+<Function Definitions> -> <Function> <FunctionDefintion2>>
+<Function> -> function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+
+
+||   Token: IDENTIFIER      Lexeme: function || 
+<Identifier> -> averageNum
+
+
+||   Token: IDENTIFIER      Lexeme: averageNum || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Opt Parameter List> -> <Parameter List>
+<Parameter List> ::= <Parameter> <Parameter List2>
+<Parameter> -> <IDs > <Qualifier>
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> mean1
+
+
+||   Token: IDENTIFIER      Lexeme: mean1 || 
+<IDs 2> -> <Empty>
+<Qualifier> -> int
+
+
+||   Token: KEYWORD      Lexeme: int || 
+<Parameter List 2> -><EMPTY>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Opt Declaration List> -> <Empty>
+<Body> -> {<Statement List>}
+
+||   Token: SEPERATOR      Lexeme: { || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Identifier>
+<Assign> -> <Identifier> = <Expression>;
+<Identifier> -> sum
+
+
+||   Token: IDENTIFIER      Lexeme: sum || 
+
+
+||   Token: OPERATOR      Lexeme: = || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 34
+
+
+||   Token: INTEGER      Lexeme: 34 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> + <Term> <Expression Prime>
+
+
+||   Token: OPERATOR      Lexeme: + || 
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 100
+
+
+||   Token: INTEGER      Lexeme: 100 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> + <Term> <Expression Prime>
+
+
+||   Token: OPERATOR      Lexeme: + || 
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 43
+
+
+||   Token: INTEGER      Lexeme: 43 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> + <Term> <Expression Prime>
+
+
+||   Token: OPERATOR      Lexeme: + || 
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 99
+
+
+||   Token: INTEGER      Lexeme: 99 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> + <Term> <Expression Prime>
+
+
+||   Token: OPERATOR      Lexeme: + || 
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 78
+
+
+||   Token: INTEGER      Lexeme: 78 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> + <Term> <Expression Prime>
+
+
+||   Token: OPERATOR      Lexeme: + || 
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 89
+
+
+||   Token: INTEGER      Lexeme: 89 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Identifier>
+<Assign> -> <Identifier> = <Expression>;
+<Identifier> -> avg
+
+
+||   Token: IDENTIFIER      Lexeme: avg || 
+
+
+||   Token: OPERATOR      Lexeme: = || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> ->(<Expression>)
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> sum
+
+
+||   Token: IDENTIFIER      Lexeme: sum || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> + <Term> <Expression Prime>
+
+
+||   Token: OPERATOR      Lexeme: + || 
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> mean1
+
+
+||   Token: IDENTIFIER      Lexeme: mean1 || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Term Prime> -> / <Factor> <Term Prime>
+
+
+||   Token: OPERATOR      Lexeme: / || 
+<Factor> -> <Primary>
+<Primary> -><Integer>
+<Integer> -> 7
+
+
+||   Token: INTEGER      Lexeme: 7 || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Return>
+<Return> -> return <Return 2>
+
+
+||   Token: KEYWORD      Lexeme: return || 
+<Return 2> -> return <Expression>;
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> avg
+
+
+||   Token: IDENTIFIER      Lexeme: avg || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: } || 
+<Function 2> -> <Empty>
+
+||   Token: SEPERATOR      Lexeme: # || 
+<Opt Declaration List> -> <Declaration List>
+<Declaration List> -> <Declaration> ; <Declaration List 2>
+<Declaration> -> <Qualifier > <IDs>
+<Qualifier> -> int
+
+
+||   Token: KEYWORD      Lexeme: int || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> grade
+
+
+||   Token: IDENTIFIER      Lexeme: grade || 
+<IDs 2> -> , <IDs>
+
+
+||   Token: SEPERATOR      Lexeme: , || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> boost
+
+
+||   Token: IDENTIFIER      Lexeme: boost || 
+<IDs 2> -> , <IDs>
+
+
+||   Token: SEPERATOR      Lexeme: , || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> curve
+
+
+||   Token: IDENTIFIER      Lexeme: curve || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Declaration List 2> -> <EMPTY>
+
+
+||   Token: SEPERATOR      Lexeme: # || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Scan>
+ <Scan> -> get ( <IDs> );
+
+
+||   Token: IDENTIFIER      Lexeme: get || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> grade
+
+
+||   Token: IDENTIFIER      Lexeme: grade || 
+<IDs 2> -> , <IDs>
+
+
+||   Token: SEPERATOR      Lexeme: , || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> average
+
+
+||   Token: IDENTIFIER      Lexeme: average || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <If>
+<If> -> if ( <Condition> ) <Statement> <if 2>
+
+
+||   Token: KEYWORD      Lexeme: if || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Condition> ::= <Expression> <Relop> <Expression>
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> grade
+
+
+||   Token: IDENTIFIER      Lexeme: grade || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+<Relop> -> <
+
+
+||   Token: OPERATOR      Lexeme: < || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> curve
+
+
+||   Token: IDENTIFIER      Lexeme: curve || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Statement> -> <Compound>
+<Compound> -> { <Statement List> }
+
+
+||   Token: SEPERATOR      Lexeme: { || 
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Print>
+<Print> -> put ( <Expression>);
+
+
+||   Token: IDENTIFIER      Lexeme: put || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> grade
+
+
+||   Token: IDENTIFIER      Lexeme: grade || 
+<Primary 2> -> <EMPTY>
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Statement List>
+<Statement List> -> <Statement> <Statement List2>
+<Statement> -> <Print>
+<Print> -> put ( <Expression>);
+
+
+||   Token: IDENTIFIER      Lexeme: put || 
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<Expression> -> <Term> <Expression Prime>
+<Term> -> <Factor> <Term Prime>
+<Factor> -> <Primary>
+<Primary> -><Identifier>
+<Identifier> -> averageNum
+
+
+||   Token: IDENTIFIER      Lexeme: averageNum || 
+<Primary 2> -> (<IDs>)
+
+
+||   Token: SEPERATOR      Lexeme: ( || 
+<IDs> -> <Identifier> <IDs 2>
+<Identifier> -> grade
+
+
+||   Token: IDENTIFIER      Lexeme: grade || 
+<IDs 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+<Term Prime> -> <Empty>
+<Expression Prime> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: ) || 
+
+
+||   Token: SEPERATOR      Lexeme: ; || 
+<Statement List 2> -> <Empty>
+
+
+||   Token: SEPERATOR      Lexeme: } || 
+<If 2> ::= fi |  else <Statement> fi
+
+
+||   Token: IDENTIFIER      Lexeme: fi || 
+<Statement List 2> -> <Empty>
+
+
+end
 
 Bash: The script file will now terminate

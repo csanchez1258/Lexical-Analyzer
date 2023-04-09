@@ -7,7 +7,7 @@
 std::pair<std::string, std::string> nexttk(int skip);
 void scanner();
 std::pair<std::string, std::string> nexttk(int step) ;
-void parser(const std::vector<std::pair<std::string, std::string>> &tokens);
+void parser(const std::vector<std::pair<std::string, std::string>> &tokens, const std::vector<std::pair<std::string, std::string>> &tokeninfo);
 void rat23s();
 void check();
 void opt_functions();
@@ -50,3 +50,6 @@ void primary2();
 void identifier();
 void integer();
 void real();
+
+void errorresult(std::string tokenresult, std::string type);
+
